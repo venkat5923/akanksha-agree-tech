@@ -1,0 +1,178 @@
+{
+  "formType": "farmer",
+  "title": "రైతు నమోదు",
+  "description": "మా సేవలను పొందడానికి రైతుగా నమోదు చేసుకోండి.",
+  "sections": [
+    {
+      "id": "personal",
+      "title": "వ్యక్తిగత సమాచారం",
+      "order": 1,
+      "fields": [
+        {
+          "name": "name",
+          "label": "పూర్తి పేరు",
+          "type": "text",
+          "placeholder": "మీ పూర్తి పేరు నమోదు చేయండి",
+          "required": true,
+          "order": 1,
+          "validation": { "minLength": 2, "maxLength": 50 },
+          "defaultValue": ""
+        },
+        {
+          "name": "age",
+          "label": "వయస్సు",
+          "type": "number",
+          "placeholder": "మీ వయస్సు నమోదు చేయండి",
+          "required": true,
+          "order": 2,
+          "validation": { "min": 18, "max": 100 },
+          "defaultValue": ""
+        },
+        {
+          "name": "phone",
+          "label": "ఫోన్ నంబర్",
+          "type": "phone",
+          "placeholder": "మీ 10 అంకెల ఫోన్ నంబర్ నమోదు చేయండి",
+          "required": true,
+          "order": 3,
+          "validation": { "pattern": "^[0-9]{10}$" },
+          "defaultValue": ""
+        },
+        {
+          "name": "sex",
+          "label": "లింగం",
+          "type": "radio",
+          "required": true,
+          "order": 4,
+          "options": ["Male", "Female"],
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "id": "address",
+      "title": "చిరునామా",
+      "order": 2,
+      "fields": [
+        {
+          "name": "addressLine",
+          "label": "చిరునామా వివరాలు",
+          "type": "text",
+          "placeholder": "మీ చిరునామా నమోదు చేయండి",
+          "required": true,
+          "order": 1,
+          "validation": { "minLength": 5, "maxLength": 100 },
+          "defaultValue": ""
+        },
+        {
+          "name": "landmark",
+          "label": "ల్యాండ్‌మార్క్",
+          "type": "text",
+          "placeholder": "సమీపంలోని ల్యాండ్‌మార్క్ నమోదు చేయండి",
+          "required": true,
+          "order": 2,
+          "validation": { "minLength": 2, "maxLength": 50 },
+          "defaultValue": ""
+        },
+        {
+          "name": "state",
+          "label": "రాష్ట్రం",
+          "type": "dropdown",
+          "placeholder": "మీ రాష్ట్రాన్ని ఎంచుకండి",
+          "required": true,
+          "order": 3,
+          "options": ["Telangana", "Andhra Pradesh"],
+          "defaultValue": ""
+        },
+        {
+          "name": "zilla",
+          "label": "జిల్లా",
+          "type": "autocomplete",
+          "dataSource": "locations",
+          "dependsOn": ["state"],
+          "placeholder": "మీ జిల్లా ఎంచుకండి",
+          "required": true,
+          "order": 4,
+          "defaultValue": null
+        },
+        {
+          "name": "mandal",
+          "label": "మండలం",
+          "type": "autocomplete",
+          "dataSource": "locations",
+          "dependsOn": ["state", "zilla"],
+          "placeholder": "మీ మండలం ఎంచుకండి",
+          "required": true,
+          "order": 5,
+          "defaultValue": null
+        }
+      ]
+    },
+    {
+      "id": "land",
+      "title": "భూమి వివరాలు",
+      "order": 3,
+      "fields": [
+        {
+          "name": "landType",
+          "label": "భూమి రకం",
+          "type": "dropdown",
+          "placeholder": "మీ భూమి రకాన్ని ఎంచుకండి",
+          "required": true,
+          "order": 1,
+          "options": ["Red", "Black", "Others"],
+          "defaultValue": ""
+        },
+        {
+          "name": "cropType",
+          "label": "పంట రకం",
+          "type": "dropdown",
+          "placeholder": "మీ పంట రకాన్ని ఎంచుకండి",
+          "required": true,
+          "order": 2,
+          "options": ["Rice","Coconuts","Groundnuts", "Wheat", "Cotton", "Sugarcane", "Maize", "Pulses", "Vegetables", "Fruits", "Others"],
+          "defaultValue": ""
+        },
+        {
+          "name": "landArea",
+          "label": "భూమి విస్తీర్ణం (ఎకరాలు)",
+          "type": "number",
+          "placeholder": "ఎకరాలలో భూమి విస్తీర్ణం నమోదు చేయండి",
+          "required": true,
+          "order": 3,
+          "validation": { "min": 0.1, "max": 10000 },
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "id": "services",
+      "title": "కావలసిన సేవలు",
+      "order": 4,
+      "fields": [
+        {
+          "name": "servicesNeeded",
+          "label": "మీకు కావలసిన సేవలను ఎంచుకోండి",
+          "type": "checkbox-group",
+          "required": true,
+          "order": 1,
+          "options": ["Drone", "Tractor", "JCB", "Crop Cutting Machine", "Groundnut Machine"],
+          "defaultValue": []
+        },
+        {
+          "name": "droneSprayingType",
+          "label": "డ్రోన్ స్ప్రేయింగ్ రకం",
+          "type": "dropdown",
+          "placeholder": "స్ప్రేయింగ్ రకాన్ని ఎంచుకోండి",
+          "required": false,
+          "order": 2,
+          "options": ["Water Spraying", "Urea Spraying"],
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "servicesNeeded", "contains": "Drone" }
+          }
+        }
+      ]
+    }
+  ]
+}

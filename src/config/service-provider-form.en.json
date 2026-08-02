@@ -1,0 +1,128 @@
+{
+  "formType": "service-provider",
+  "title": "Service Provider Registration",
+  "description": "Register as a service provider to offer your services to farmers.",
+  "sections": [
+    {
+      "id": "personal",
+      "title": "Personal Information",
+      "order": 1,
+      "fields": [
+        {
+          "name": "fullName",
+          "label": "Full Name",
+          "type": "text",
+          "placeholder": "Enter your full name",
+          "required": true,
+          "order": 1,
+          "validation": { "minLength": 2, "maxLength": 50 },
+          "defaultValue": ""
+        },
+        {
+          "name": "age",
+          "label": "Age",
+          "type": "number",
+          "placeholder": "Enter your age",
+          "required": true,
+          "order": 2,
+          "validation": { "min": 18, "max": 100 },
+          "defaultValue": ""
+        },
+        {
+          "name": "phone",
+          "label": "Phone Number",
+          "type": "phone",
+          "placeholder": "Enter your 10-digit phone number",
+          "required": true,
+          "order": 3,
+          "validation": { "pattern": "^[0-9]{10}$" },
+          "defaultValue": ""
+        },
+        {
+          "name": "sex",
+          "label": "Sex",
+          "type": "radio",
+          "required": true,
+          "order": 4,
+          "options": ["Male", "Female"],
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "id": "address",
+      "title": "Address",
+      "order": 2,
+      "fields": [
+        {
+          "name": "addressLine",
+          "label": "Address Line",
+          "type": "text",
+          "placeholder": "Enter your address line",
+          "required": true,
+          "order": 1,
+          "validation": { "minLength": 5, "maxLength": 100 },
+          "defaultValue": ""
+        },
+        {
+          "name": "landmark",
+          "label": "Landmark",
+          "type": "text",
+          "placeholder": "Enter nearest landmark",
+          "required": true,
+          "order": 2,
+          "validation": { "minLength": 2, "maxLength": 50 },
+          "defaultValue": ""
+        },
+        {
+          "name": "state",
+          "label": "State",
+          "type": "dropdown",
+          "placeholder": "Select your state",
+          "required": true,
+          "order": 3,
+          "options": ["Telangana", "Andhra Pradesh"],
+          "defaultValue": ""
+        },
+        {
+          "name": "zilla",
+          "label": "Zilla (District)",
+          "type": "autocomplete",
+          "dataSource": "locations",
+          "dependsOn": ["state"],
+          "placeholder": "Select your district",
+          "required": true,
+          "order": 4,
+          "defaultValue": null
+        },
+        {
+          "name": "mandal",
+          "label": "Mandal",
+          "type": "autocomplete",
+          "dataSource": "locations",
+          "dependsOn": ["state", "zilla"],
+          "placeholder": "Select your mandal",
+          "required": true,
+          "order": 5,
+          "defaultValue": null
+        }
+      ]
+    },
+    {
+      "id": "service",
+      "title": "Service Details",
+      "order": 3,
+      "fields": [
+        {
+          "name": "servicesProvided",
+          "label": "Select the services you can provide",
+          "type": "checkbox-group",
+          "required": true,
+          "order": 1,
+          "options": ["Drone", "Tractor", "JCB", "Crop Cutting Machine", "Groundnut Machine"],
+          "defaultValue": []
+        }
+      ]
+    }
+  ]
+}
