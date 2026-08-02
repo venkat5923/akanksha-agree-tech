@@ -1,6 +1,15 @@
 import { useState, useEffect } from "react";
+import farmerEn from "../config/farmer-form.en.json";
+import farmerTe from "../config/farmer-form.te.json";
+import providerEn from "../config/service-provider-form.en.json";
+import providerTe from "../config/service-provider-form.te.json";
 
-// Loads a form configuration JSON dynamically based on form type and language.
+const configs = {
+  farmer: { en: farmerEn, te: farmerTe },
+  "service-provider": { en: providerEn, te: providerTe },
+};
+
+// Loads a form configuration based on form type and language.
 // Returns { config, loading, error }.
 export function useFormConfig(formType, lang = "te") {
   const [config, setConfig] = useState(null);
@@ -8,41 +17,19 @@ export function useFormConfig(formType, lang = "te") {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let cancelled = false;
     setLoading(true);
     setError(null);
 
-    const configPath =
-      formType === "farmer"
-        ? `../config/farmer-form.${lang}.json`
-        : formType === "service-provider"
-          ? `../config/service-provider-form.${lang}.json`
-          : null;
-
-    if (!configPath) {
+    const formConfigs = configs[formType];
+    if (!formConfigs) {
       setError(`Unknown form type: ${formType}`);
       setLoading(false);
       return;
     }
 
-    // Vite supports JSON imports natively
-    import(configPath)
-      .then((mod) => {
-        if (!cancelled) {
-          setConfig(mod.default);
-          setLoading(false);
-        }
-      })
-      .catch((err) => {
-        if (!cancelled) {
-          setError(`Failed to load form config: ${err.message}`);
-          setLoading(false);
-        }
-      });
-
-    return () => {
-      cancelled = true;
-    };
+    const cfg = formConfigs[lang] || formConfigs.en;
+    setConfig(cfg);
+    setLoading(false);
   }, [formType, lang]);
 
   return { config, loading, error };
