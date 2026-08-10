@@ -131,7 +131,7 @@ function MultiSelectField({ field, control, rules, error, errorMsg, t }) {
                       key={opt}
                       value={opt}
                       sx={{
-                        py: 1,
+                        py: 1.1,
                         px: 2,
                         bgcolor: isChecked ? "rgba(46, 125, 50, 0.08) !important" : "transparent",
                         "&:hover": {
@@ -152,6 +152,33 @@ function MultiSelectField({ field, control, rules, error, errorMsg, t }) {
                     </MenuItem>
                   );
                 })}
+
+                {/* Direct 'Done' Option Button below the Others option */}
+                <Box sx={{ p: 1.5, pt: 1.5, pb: 1, borderTop: "1px dashed #e2e8f0", bgcolor: "#f8fafc" }}>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOpen(false);
+                    }}
+                    sx={{
+                      py: 1.2,
+                      fontWeight: 700,
+                      borderRadius: 2,
+                      fontSize: "0.95rem",
+                      textTransform: "none",
+                      backgroundImage: "linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%)",
+                      boxShadow: "0 3px 10px rgba(46, 125, 50, 0.3)",
+                      "&:hover": {
+                        backgroundImage: "linear-gradient(135deg, #1b5e20 0%, #0d3810 100%)",
+                      },
+                    }}
+                  >
+                    {t("done")} {currentValues.length > 0 ? `(${currentValues.length} ${t("selected")})` : ""} ✓
+                  </Button>
+                </Box>
               </Box>
 
               {/* Sticky Bottom Footer with Clear & Prominent Done Button */}
