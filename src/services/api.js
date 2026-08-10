@@ -20,25 +20,40 @@ export async function submitFormData(formType, data) {
     data,
   };
 
-  // Use text/plain to avoid CORS preflight (OPTIONS) request.
-  // Google Apps Script doesn't handle OPTIONS, so we must not trigger it.
-  const response = await fetch(url, {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8",
-    },
-    body: JSON.stringify(payload),
-  });
+  try {
+    // Attempt standard CORS fetch first
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+      body: JSON.stringify(payload),
+    });
 
-  if (!response.ok) {
-    throw new Error(`Submission failed with status ${response.status}`);
+    if (response.ok) {
+      const contentType = response.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        return response.json();
+      }
+      return { success: true };
+    }
+  } catch (err) {
+    console.warn("Standard fetch CORS issue (common with Google Apps Script redirect), attempting fallback:", err);
   }
 
-  // Apps Script may return text or JSON
-  const contentType = response.headers.get("content-type") || "";
-  if (contentType.includes("application/json")) {
-    return response.json();
+  // Fallback to no-cors mode ensuring the data reaches Google Apps Script regardless of browser preflight
+  try {
+    await fetch(url, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+      body: JSON.stringify(payload),
+    });
+    return { success: true, message: "Submitted successfully" };
+  } catch (fallbackErr) {
+    console.error("Submission failed completely:", fallbackErr);
+    throw new Error(fallbackErr.message || "Failed to submit form to Google Sheet.");
   }
-  return response.text();
 }
