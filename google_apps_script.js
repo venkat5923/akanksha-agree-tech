@@ -109,7 +109,10 @@ function setupSpreadsheet() {
     ss.deleteSheet(defaultSheet);
   }
 
-  Logger.log("✅ Tables formatted with separate dedicated columns for Farmers and Service Providers!");
+  Logger.log("✅ Tables formatted with separate dedicated columns!");
+  Logger.log("🔗 FULL SPREADSHEET LINK: " + ss.getUrl());
+  Logger.log("🌾 FARMERS TAB LINK: " + ss.getUrl() + "#gid=" + farmerSheet.getSheetId());
+  Logger.log("🚜 SERVICE PROVIDERS TAB LINK: " + ss.getUrl() + "#gid=" + providerSheet.getSheetId());
 }
 
 function buildStyledTable(sheet, headers, headerColor) {
