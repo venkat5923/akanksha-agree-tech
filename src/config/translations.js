@@ -4,7 +4,7 @@
 
 export const translations = {
   en: {
-    appName: "AgreeTech",
+    appName: "Akanksha Agree Tech",
     farmerTab: "Farmer Registration",
     serviceProviderTab: "Service Provider Registration",
     progress: "Progress",
@@ -28,7 +28,7 @@ export const translations = {
     validationPattern: "format is invalid",
   },
   te: {
-    appName: "అగ్రీటెక్",
+    appName: "ఆకాంక్ష అగ్రీటెక్",
     farmerTab: "రైతు నమోదు",
     serviceProviderTab: "సేవా ప్రదాత నమోదు",
     progress: "పురోగతి",

@@ -1,6 +1,6 @@
-# AgreeForms
+# Akanksha Agree Tech
 
-A JSON-driven dynamic form application built with React 19, Vite, Material UI, and React Hook Form. Forms are rendered entirely from JSON configuration files — no fields are hardcoded.
+A dynamic, JSON-driven agricultural service and farmer registration platform built with React 19, Vite, Material UI (MUI), and Google Sheets / Apps Script. Connects farmers directly with regional agricultural service providers (drone spraying, harvesters, tractors, JCB, machinery).
 
 ## Features
 
