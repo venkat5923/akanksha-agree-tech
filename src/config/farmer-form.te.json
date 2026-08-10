@@ -169,8 +169,9 @@
       "fields": [
         {
           "name": "servicesNeeded",
-          "label": "మీకు కావలసిన సేవలను ఎంచుకోండి",
-          "type": "checkbox-group",
+          "label": "మీకు కావలసిన సేవలను ఎంచుకోండి (బహుళ ఎంపిక)",
+          "type": "multiselect",
+          "placeholder": "ఒకటి లేదా అంతకంటే ఎక్కువ వ్యవసాయ సేవలను ఎంచుకోండి",
           "required": true,
           "order": 1,
           "options": ["Drone", "Tractor", "JCB", "Crop Cutting Machine", "Groundnut Machine"],
@@ -178,15 +179,93 @@
         },
         {
           "name": "droneSprayingType",
-          "label": "డ్రోన్ స్ప్రేయింగ్ రకం",
-          "type": "dropdown",
-          "placeholder": "స్ప్రేయింగ్ రకాన్ని ఎంచుకోండి",
+          "label": "డ్రోన్ ఆపరేషన్లు / ఫీచర్లు",
+          "type": "multiselect",
+          "placeholder": "డ్రోన్ ఫీచర్లు ఎంచుకోండి",
           "required": false,
           "order": 2,
-          "options": ["Water Spraying", "Urea Spraying"],
-          "defaultValue": "",
+          "options": [
+            "Water Spraying (నీటి స్ప్రేయింగ్)",
+            "Urea / Liquid Fertilizer Spraying (యూరియా / ఎరువుల స్ప్రేయింగ్)",
+            "Pesticide & Insecticide Spraying (పురుగుమందుల స్ప్రేయింగ్)",
+            "Crop Health Survey & Mapping (పంట సర్వే & మ్యాపింగ్)"
+          ],
+          "defaultValue": [],
           "conditional": {
             "showWhen": { "field": "servicesNeeded", "contains": "Drone" }
+          }
+        },
+        {
+          "name": "tractorOperationType",
+          "label": "ట్రాక్టర్ పరికరాలు / పనులు",
+          "type": "multiselect",
+          "placeholder": "ట్రాక్టర్ పనులను ఎంచుకోండి",
+          "required": false,
+          "order": 3,
+          "options": [
+            "Ploughing / MB Plough (నాగలి దుక్కి)",
+            "Rotavator (రోటవేటర్)",
+            "Cultivator (కల్టివేటర్)",
+            "Seed Drilling / Sowing (విత్తనం వేయుట)",
+            "Laser Levelling (లేజర్ లెవలింగ్)",
+            "Trolley / Cargo Transport (ట్రాలీ రవాణా)"
+          ],
+          "defaultValue": [],
+          "conditional": {
+            "showWhen": { "field": "servicesNeeded", "contains": "Tractor" }
+          }
+        },
+        {
+          "name": "jcbOperationType",
+          "label": "JCB పనులు / ఫీచర్లు",
+          "type": "multiselect",
+          "placeholder": "JCB పనులను ఎంచుకోండి",
+          "required": false,
+          "order": 4,
+          "options": [
+            "Land Levelling & Clearing (భూమి చదును మరియు శుభ్రం)",
+            "Farm Pond Excavation (రైతు కుంట తవ్వకం)",
+            "Trenching & Pipe Line Digging (కాలువ / పైపులైన్ తవ్వకం)",
+            "Tree Stumps & Bush Removal (చెట్లు, పొదల తొలగింపు)"
+          ],
+          "defaultValue": [],
+          "conditional": {
+            "showWhen": { "field": "servicesNeeded", "contains": "JCB" }
+          }
+        },
+        {
+          "name": "cropCuttingType",
+          "label": "పంట కోత మిషన్ (హార్వెస్టర్) ఫీచర్లు",
+          "type": "multiselect",
+          "placeholder": "హార్వెస్టర్ రకాన్ని ఎంచుకోండి",
+          "required": false,
+          "order": 5,
+          "options": [
+            "Paddy / Rice Harvester (వరి కోత మిషన్)",
+            "Maize / Corn Harvester (మొక్కజొన్న కోత మిషన్)",
+            "Wheat Harvester (గోధుమ కోత మిషన్)",
+            "Straw Reaper & Baling (గడ్డి చుట్టే యంత్రం)"
+          ],
+          "defaultValue": [],
+          "conditional": {
+            "showWhen": { "field": "servicesNeeded", "contains": "Crop Cutting Machine" }
+          }
+        },
+        {
+          "name": "groundnutMachineType",
+          "label": "వేరుశనగ మిషన్ ఫీచర్లు",
+          "type": "multiselect",
+          "placeholder": "వేరుశనగ మిషన్ రకాన్ని ఎంచుకోండి",
+          "required": false,
+          "order": 6,
+          "options": [
+            "Groundnut Digger / Harvester (తవ్వకం యంత్రం)",
+            "Groundnut Pod Separator / Thresher (కాయలు వేరుచేసే యంత్రం)",
+            "Decorticator / Shelling (గుజ్జు/తొక్క వేరుచేసే యంత్రం)"
+          ],
+          "defaultValue": [],
+          "conditional": {
+            "showWhen": { "field": "servicesNeeded", "contains": "Groundnut Machine" }
           }
         }
       ]

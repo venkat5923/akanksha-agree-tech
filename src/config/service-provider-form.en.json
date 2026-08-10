@@ -132,12 +132,104 @@
       "fields": [
         {
           "name": "servicesProvided",
-          "label": "Select the services you can provide",
-          "type": "checkbox-group",
+          "label": "Select the Services Provided (Multi-Select)",
+          "type": "multiselect",
+          "placeholder": "Choose services you can provide",
           "required": true,
           "order": 1,
           "options": ["Drone", "Tractor", "JCB", "Crop Cutting Machine", "Groundnut Machine"],
           "defaultValue": []
+        },
+        {
+          "name": "droneCapabilities",
+          "label": "Drone Capabilities Offered",
+          "type": "multiselect",
+          "placeholder": "Select drone services you offer",
+          "required": false,
+          "order": 2,
+          "options": [
+            "Water Spraying",
+            "Urea / Liquid Fertilizer Spraying",
+            "Pesticide & Insecticide Spraying",
+            "Crop Health Survey & Mapping"
+          ],
+          "defaultValue": [],
+          "conditional": {
+            "showWhen": { "field": "servicesProvided", "contains": "Drone" }
+          }
+        },
+        {
+          "name": "tractorCapabilities",
+          "label": "Tractor Implements Available",
+          "type": "multiselect",
+          "placeholder": "Select tractor implements available",
+          "required": false,
+          "order": 3,
+          "options": [
+            "Ploughing / MB Plough",
+            "Rotavator",
+            "Cultivator",
+            "Seed Drilling / Sowing",
+            "Laser Levelling",
+            "Trolley / Cargo Transport"
+          ],
+          "defaultValue": [],
+          "conditional": {
+            "showWhen": { "field": "servicesProvided", "contains": "Tractor" }
+          }
+        },
+        {
+          "name": "jcbCapabilities",
+          "label": "JCB Operations Offered",
+          "type": "multiselect",
+          "placeholder": "Select JCB operations available",
+          "required": false,
+          "order": 4,
+          "options": [
+            "Land Levelling & Clearing",
+            "Farm Pond Excavation",
+            "Trenching & Pipe Line Digging",
+            "Tree Stumps & Bush Removal"
+          ],
+          "defaultValue": [],
+          "conditional": {
+            "showWhen": { "field": "servicesProvided", "contains": "JCB" }
+          }
+        },
+        {
+          "name": "cropCuttingCapabilities",
+          "label": "Harvester (Crop Cutting) Capabilities",
+          "type": "multiselect",
+          "placeholder": "Select harvester capabilities",
+          "required": false,
+          "order": 5,
+          "options": [
+            "Paddy / Rice Harvester",
+            "Maize / Corn Harvester",
+            "Wheat Harvester",
+            "Straw Reaper & Baling"
+          ],
+          "defaultValue": [],
+          "conditional": {
+            "showWhen": { "field": "servicesProvided", "contains": "Crop Cutting Machine" }
+          }
+        },
+        {
+          "name": "groundnutMachineCapabilities",
+          "label": "Groundnut Machine Capabilities",
+          "type": "multiselect",
+          "placeholder": "Select groundnut machine capabilities",
+          "required": false,
+          "order": 6,
+          "options": [
+            "Groundnut Digger / Harvester",
+            "Groundnut Pod Separator / Thresher",
+            "Decorticator / Shelling"
+          ],
+          "defaultValue": [],
+          "conditional": {
+            "showWhen": { "field": "servicesProvided", "contains": "Groundnut Machine" }
+          }
         }
       ]
     }

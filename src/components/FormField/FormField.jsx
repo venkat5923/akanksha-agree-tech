@@ -13,6 +13,8 @@ import {
   InputLabel,
   FormHelperText,
   Box,
+  Chip,
+  OutlinedInput,
 } from "@mui/material";
 import { buildValidationRules } from "../../utils/validation.js";
 import { useLanguage } from "../../context/LanguageContext.jsx";
@@ -26,7 +28,7 @@ export default function FormField({ field, control, errors }) {
   const rules = buildValidationRules(field, t);
   const error = errors[field.name];
   const errorMsg = error ? error.message : "";
-  const isFullWidth = ["textarea", "checkbox", "radio", "checkbox-group"].includes(field.type);
+  const isFullWidth = ["textarea", "checkbox", "radio", "checkbox-group", "multiselect"].includes(field.type);
 
   // Hidden field — registers with RHF but renders nothing visible
   if (field.type === "hidden") {
@@ -176,26 +178,46 @@ export default function FormField({ field, control, errors }) {
             control={control}
             defaultValue={field.defaultValue || []}
             rules={rules}
-            render={({ field: f }) => (
-              <FormControl fullWidth error={!!error}>
-                <InputLabel>{field.label}</InputLabel>
-                <Select
-                  {...f}
-                  multiple
-                  label={field.label}
-                  value={Array.isArray(f.value) ? f.value : []}
-                  renderValue={(selected) => selected.join(", ")}
-                >
-                  {(field.options || []).map((opt) => (
-                    <MenuItem key={opt} value={opt}>
-                      <Checkbox checked={f.value?.indexOf(opt) > -1} />
-                      {opt}
-                    </MenuItem>
-                  ))}
-                </Select>
-                {errorMsg && <FormHelperText>{errorMsg}</FormHelperText>}
-              </FormControl>
-            )}
+            render={({ field: f }) => {
+              const currentValues = Array.isArray(f.value) ? f.value : (f.value ? [f.value] : []);
+              return (
+                <FormControl fullWidth error={!!error}>
+                  <InputLabel>{field.label}</InputLabel>
+                  <Select
+                    {...f}
+                    multiple
+                    input={<OutlinedInput label={field.label} />}
+                    value={currentValues}
+                    onChange={(e) => {
+                      const val = typeof e.target.value === "string" ? e.target.value.split(",") : e.target.value;
+                      f.onChange(val);
+                    }}
+                    renderValue={(selected) => (
+                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                        {(Array.isArray(selected) ? selected : []).map((opt) => (
+                          <Chip
+                            key={opt}
+                            label={opt}
+                            size="small"
+                            color="primary"
+                            variant="outlined"
+                            sx={{ fontWeight: 500 }}
+                          />
+                        ))}
+                      </Box>
+                    )}
+                  >
+                    {(field.options || []).map((opt) => (
+                      <MenuItem key={opt} value={opt}>
+                        <Checkbox checked={currentValues.indexOf(opt) > -1} />
+                        {opt}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  {errorMsg && <FormHelperText>{errorMsg}</FormHelperText>}
+                </FormControl>
+              );
+            }}
           />
         );
 

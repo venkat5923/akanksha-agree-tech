@@ -132,12 +132,104 @@
       "fields": [
         {
           "name": "servicesProvided",
-          "label": "మీరు అందించగల సేవలను ఎంచుకోండి",
-          "type": "checkbox-group",
+          "label": "మీరు అందించగల సేవలను ఎంచుకోండి (బహుళ ఎంపిక)",
+          "type": "multiselect",
+          "placeholder": "మీరు అందించే సేవలను ఎంచుకోండి",
           "required": true,
           "order": 1,
           "options": ["Drone", "Tractor", "JCB", "Crop Cutting Machine", "Groundnut Machine"],
           "defaultValue": []
+        },
+        {
+          "name": "droneCapabilities",
+          "label": "అందుబాటులో ఉన్న డ్రోన్ సేవలు",
+          "type": "multiselect",
+          "placeholder": "డ్రోన్ సామర్థ్యాలను ఎంచుకోండి",
+          "required": false,
+          "order": 2,
+          "options": [
+            "Water Spraying (నీటి స్ప్రేయింగ్)",
+            "Urea / Liquid Fertilizer Spraying (యూరియా / ఎరువుల స్ప్రేయింగ్)",
+            "Pesticide & Insecticide Spraying (పురుగుమందుల స్ప్రేయింగ్)",
+            "Crop Health Survey & Mapping (పంట సర్వే & మ్యాపింగ్)"
+          ],
+          "defaultValue": [],
+          "conditional": {
+            "showWhen": { "field": "servicesProvided", "contains": "Drone" }
+          }
+        },
+        {
+          "name": "tractorCapabilities",
+          "label": "అందుబాటులో ఉన్న ట్రాక్టర్ పరికరాలు",
+          "type": "multiselect",
+          "placeholder": "ట్రాక్టర్ పరికరాలను ఎంచుకోండి",
+          "required": false,
+          "order": 3,
+          "options": [
+            "Ploughing / MB Plough (నాగలి దుక్కి)",
+            "Rotavator (రోటవేటర్)",
+            "Cultivator (కల్టివేటర్)",
+            "Seed Drilling / Sowing (విత్తనం వేయుట)",
+            "Laser Levelling (లేజర్ లెవలింగ్)",
+            "Trolley / Cargo Transport (ట్రాలీ రవాణా)"
+          ],
+          "defaultValue": [],
+          "conditional": {
+            "showWhen": { "field": "servicesProvided", "contains": "Tractor" }
+          }
+        },
+        {
+          "name": "jcbCapabilities",
+          "label": "JCB ద్వారా అందించే పనులు",
+          "type": "multiselect",
+          "placeholder": "JCB పనులను ఎంచుకోండి",
+          "required": false,
+          "order": 4,
+          "options": [
+            "Land Levelling & Clearing (భూమి చదును మరియు శుభ్రం)",
+            "Farm Pond Excavation (రైతు కుంట తవ్వకం)",
+            "Trenching & Pipe Line Digging (కాలువ / పైపులైన్ తవ్వకం)",
+            "Tree Stumps & Bush Removal (చెట్లు, పొదల తొలగింపు)"
+          ],
+          "defaultValue": [],
+          "conditional": {
+            "showWhen": { "field": "servicesProvided", "contains": "JCB" }
+          }
+        },
+        {
+          "name": "cropCuttingCapabilities",
+          "label": "హార్వెస్టర్ (పంట కోత) సామర్థ్యాలు",
+          "type": "multiselect",
+          "placeholder": "హార్వెస్టర్ రకాలను ఎంచుకోండి",
+          "required": false,
+          "order": 5,
+          "options": [
+            "Paddy / Rice Harvester (వరి కోత మిషన్)",
+            "Maize / Corn Harvester (మొక్కజొన్న కోత మిషన్)",
+            "Wheat Harvester (గోధుమ కోత మిషన్)",
+            "Straw Reaper & Baling (గడ్డి చుట్టే యంత్రం)"
+          ],
+          "defaultValue": [],
+          "conditional": {
+            "showWhen": { "field": "servicesProvided", "contains": "Crop Cutting Machine" }
+          }
+        },
+        {
+          "name": "groundnutMachineCapabilities",
+          "label": "వేరుశనగ యంత్ర సామర్థ్యాలు",
+          "type": "multiselect",
+          "placeholder": "వేరుశనగ మిషన్ రకాలను ఎంచుకోండి",
+          "required": false,
+          "order": 6,
+          "options": [
+            "Groundnut Digger / Harvester (తవ్వకం యంత్రం)",
+            "Groundnut Pod Separator / Thresher (కాయలు వేరుచేసే యంత్రం)",
+            "Decorticator / Shelling (గుజ్జు/తొక్క వేరుచేసే యంత్రం)"
+          ],
+          "defaultValue": [],
+          "conditional": {
+            "showWhen": { "field": "servicesProvided", "contains": "Groundnut Machine" }
+          }
         }
       ]
     }
