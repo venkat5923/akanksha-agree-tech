@@ -1,6 +1,6 @@
 // Central configuration for the application.
 // Replace the URL below with your Google Apps Script Web App URL.
 export const APP_CONFIG = {
-  farmerUrl: "https://script.google.com/macros/s/AKfycbxlgiHGVs9daRz7j3vZmu2A2IxLLes7WWLmZ9LDUrQ_92CuOkttg5vTcnxJoo8DYaw/exec",
-  serviceProviderUrl: "https://script.google.com/macros/s/AKfycbzOjbQvZwQGW4tayN-wo1zoiQefxFLkvr2bTLzXo0x_-jmguTJ0ZnG148EAVLi7cac/exec"
+  farmerUrl: "https://script.google.com/a/macros/rmkec.ac.in/s/AKfycbxxHvxygHkjCr1ghgXmRXsR5obRU4wsi3WAekVbkK-bQJU5XIcU0ieCYPe6DVdW91R2kw/exec",
+  serviceProviderUrl: "https://script.google.com/a/macros/rmkec.ac.in/s/AKfycbxxHvxygHkjCr1ghgXmRXsR5obRU4wsi3WAekVbkK-bQJU5XIcU0ieCYPe6DVdW91R2kw/exec"
 };
