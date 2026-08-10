@@ -285,10 +285,21 @@
           "required": false,
           "order": 5,
           "options": [
-            "Paddy / Rice Harvester (వరి కోత మిషన్)",
-            "Maize / Corn Harvester (మొక్కజొన్న కోత మిషన్)",
-            "Wheat Harvester (గోధుమ కోత మిషన్)",
-            "Straw Reaper & Baling (గడ్డి చుట్టే యంత్రం)"
+            "Wheat Cutting (గోధుమ కోత)",
+            "Paddy / Rice Harvesting (వరి కోత)",
+            "Soybean Harvesting (సోయాబీన్ కోత)",
+            "Mustard Cutting (ఆవాల కోత)",
+            "Maize Harvesting (మొక్కజొన్న కోత)",
+            "Sorghum Cutting (జొన్న కోత)",
+            "Bajra / Millet Cutting (సజ్జలు/చిరుధాన్యాల కోత)",
+            "Grass Cutting (గడ్డి కోత)",
+            "Fodder Cutting (పశుగ్రాసం కోత)",
+            "Napier Grass Cutting (నేపియర్ గడ్డి కోత)",
+            "Sugarcane Cutting / Mini Harvester (చెరకు కోత)",
+            "Straw Cutting (గడ్డి కోత / ముక్కలు)",
+            "Reaping (రీపింగ్)",
+            "Windrowing (వరసలలో అమర్చడం)",
+            "Stubble Cutting (మొద్దుల కోత)"
           ],
           "defaultValue": [],
           "conditional": {

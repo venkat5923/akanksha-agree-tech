@@ -248,10 +248,21 @@
           "required": false,
           "order": 5,
           "options": [
-            "Paddy / Rice Harvester",
-            "Maize / Corn Harvester",
-            "Wheat Harvester",
-            "Straw Reaper & Baling"
+            "Wheat Cutting",
+            "Paddy / Rice Harvesting",
+            "Soybean Harvesting",
+            "Mustard Cutting",
+            "Maize Harvesting",
+            "Sorghum Cutting",
+            "Bajra / Millet Cutting",
+            "Grass Cutting",
+            "Fodder Cutting",
+            "Napier Grass Cutting",
+            "Sugarcane Cutting (Mini Harvester)",
+            "Straw Cutting",
+            "Reaping",
+            "Windrowing",
+            "Stubble Cutting"
           ],
           "defaultValue": [],
           "conditional": {
