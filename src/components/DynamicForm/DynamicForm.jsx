@@ -135,39 +135,84 @@ export default function DynamicForm({ config }) {
   }
 
   return (
-    <Container maxWidth="md" ref={topRef}>
+    <Container maxWidth="md" ref={topRef} sx={{ px: { xs: 0.5, sm: 2 } }}>
       {/* Header */}
-      <Box sx={{ mb: 3, textAlign: "center" }}>
-        <Typography variant="h4" fontWeight={700} gutterBottom>
+      <Box sx={{ mb: { xs: 2.5, sm: 3.5 }, textAlign: "center" }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 800,
+            fontSize: { xs: "1.35rem", sm: "1.9rem" },
+            color: "#1e293b",
+            letterSpacing: "-0.02em",
+            mb: 0.5,
+          }}
+        >
           {config.title}
         </Typography>
         {config.description && (
-          <Typography variant="body1" color="text.secondary">
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.secondary",
+              fontSize: { xs: "0.88rem", sm: "1rem" },
+              maxWidth: 600,
+              mx: "auto",
+            }}
+          >
             {config.description}
           </Typography>
         )}
       </Box>
 
       {/* Progress indicator */}
-      <Box sx={{ mb: 4 }}>
+      <Box
+        sx={{
+          mb: { xs: 3, sm: 4 },
+          bgcolor: "#ffffff",
+          p: { xs: 1.5, sm: 2 },
+          borderRadius: 2.5,
+          border: "1px solid #e2e8f0",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.03)",
+        }}
+      >
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            mb: 0.5,
+            alignItems: "center",
+            mb: 1,
           }}
         >
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="body2" sx={{ fontWeight: 600, color: "text.secondary", fontSize: { xs: "0.8rem", sm: "0.875rem" } }}>
             {t("progress")}
           </Typography>
-          <Typography variant="caption" color="text.secondary">
+          <Box
+            sx={{
+              bgcolor: progress === 100 ? "success.light" : "rgba(46, 125, 50, 0.12)",
+              color: progress === 100 ? "#ffffff" : "primary.dark",
+              px: 1.2,
+              py: 0.25,
+              borderRadius: 1.5,
+              fontWeight: 700,
+              fontSize: "0.78rem",
+            }}
+          >
             {progress}%
-          </Typography>
+          </Box>
         </Box>
         <LinearProgress
           variant="determinate"
           value={progress}
-          sx={{ height: 6, borderRadius: 3 }}
+          sx={{
+            height: 8,
+            borderRadius: 4,
+            bgcolor: "#e2e8f0",
+            "& .MuiLinearProgress-bar": {
+              borderRadius: 4,
+              backgroundImage: "linear-gradient(90deg, #4caf50 0%, #2e7d32 100%)",
+            },
+          }}
         />
       </Box>
 
@@ -211,7 +256,15 @@ export default function DynamicForm({ config }) {
         })}
 
         {/* Submit button */}
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            mt: 3,
+            mb: 6,
+            px: { xs: 1, sm: 0 },
+          }}
+        >
           <Button
             type="submit"
             variant="contained"
@@ -219,9 +272,18 @@ export default function DynamicForm({ config }) {
             disabled={submitting}
             startIcon={submitting ? null : <SendIcon />}
             sx={{
-              minWidth: 200,
-              borderRadius: 2,
-              py: 1.5,
+              width: { xs: "100%", sm: "auto" },
+              minWidth: { sm: 260 },
+              borderRadius: 3,
+              py: { xs: 1.6, sm: 1.8 },
+              fontSize: { xs: "1.05rem", sm: "1.12rem" },
+              fontWeight: 700,
+              backgroundImage: "linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%)",
+              boxShadow: "0 4px 14px rgba(46, 125, 50, 0.35)",
+              "&:hover": {
+                backgroundImage: "linear-gradient(135deg, #1b5e20 0%, #0d3810 100%)",
+                boxShadow: "0 6px 20px rgba(46, 125, 50, 0.45)",
+              },
             }}
           >
             {submitting ? t("submitting") : t("submit")}

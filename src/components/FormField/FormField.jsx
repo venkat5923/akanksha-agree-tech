@@ -27,8 +27,11 @@ export default function FormField({ field, control, errors }) {
   const { t } = useLanguage();
   const rules = buildValidationRules(field, t);
   const error = errors[field.name];
-  const errorMsg = error ? error.message : "";
-  const isFullWidth = ["textarea", "checkbox", "radio", "checkbox-group", "multiselect"].includes(field.type);
+  const isFullWidth =
+    ["textarea", "checkbox", "radio", "checkbox-group", "multiselect"].includes(field.type) ||
+    field.name?.toLowerCase().includes("other") ||
+    field.name?.toLowerCase().includes("address") ||
+    field.name === "fieldOperatorName";
 
   // Hidden field — registers with RHF but renders nothing visible
   if (field.type === "hidden") {
@@ -152,11 +155,19 @@ export default function FormField({ field, control, errors }) {
                 <Select
                   {...f}
                   label={field.label}
-                  value={f.value || ""}
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        maxHeight: { xs: 280, sm: 360 },
+                        borderRadius: 2,
+                        boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+                      },
+                    },
+                  }}
                 >
                   {field.placeholder && (
                     <MenuItem value="" disabled>
-                      {field.placeholder}
+                      <em>{field.placeholder}</em>
                     </MenuItem>
                   )}
                   {(field.options || []).map((opt) => (
@@ -193,7 +204,7 @@ export default function FormField({ field, control, errors }) {
                       f.onChange(val);
                     }}
                     renderValue={(selected) => (
-                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.75 }}>
                         {(Array.isArray(selected) ? selected : []).map((opt) => (
                           <Chip
                             key={opt}
@@ -201,16 +212,30 @@ export default function FormField({ field, control, errors }) {
                             size="small"
                             color="primary"
                             variant="outlined"
-                            sx={{ fontWeight: 500 }}
+                            sx={{
+                              fontWeight: 600,
+                              borderRadius: 1.5,
+                              fontSize: { xs: "0.75rem", sm: "0.82rem" },
+                              bgcolor: "rgba(46, 125, 50, 0.08)",
+                            }}
                           />
                         ))}
                       </Box>
                     )}
+                    MenuProps={{
+                      PaperProps: {
+                        sx: {
+                          maxHeight: { xs: 300, sm: 380 },
+                          borderRadius: 2,
+                          boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+                        },
+                      },
+                    }}
                   >
                     {(field.options || []).map((opt) => (
-                      <MenuItem key={opt} value={opt}>
-                        <Checkbox checked={currentValues.indexOf(opt) > -1} />
-                        {opt}
+                      <MenuItem key={opt} value={opt} sx={{ py: 1 }}>
+                        <Checkbox checked={currentValues.indexOf(opt) > -1} color="primary" />
+                        <Box sx={{ fontSize: { xs: "0.9rem", sm: "0.95rem" } }}>{opt}</Box>
                       </MenuItem>
                     ))}
                   </Select>
@@ -230,19 +255,29 @@ export default function FormField({ field, control, errors }) {
             rules={rules}
             render={({ field: f }) => (
               <FormControl fullWidth error={!!error}>
-                <FormLabel>{field.label}</FormLabel>
+                <FormLabel sx={{ fontWeight: 600, mb: 1, color: "text.primary" }}>{field.label}</FormLabel>
                 <RadioGroup
                   row
                   value={f.value || ""}
                   onChange={f.onChange}
                   name={f.name}
+                  sx={{ gap: { xs: 1, sm: 2 } }}
                 >
                   {(field.options || []).map((opt) => (
                     <FormControlLabel
                       key={opt}
                       value={opt}
-                      control={<Radio />}
+                      control={<Radio color="primary" />}
                       label={opt}
+                      sx={{
+                        m: 0,
+                        px: 1.5,
+                        py: 0.5,
+                        borderRadius: 2,
+                        border: f.value === opt ? "1.5px solid #2e7d32" : "1px solid #e2e8f0",
+                        bgcolor: f.value === opt ? "rgba(46, 125, 50, 0.06)" : "#ffffff",
+                        transition: "all 0.15s ease",
+                      }}
                     />
                   ))}
                 </RadioGroup>
@@ -267,6 +302,7 @@ export default function FormField({ field, control, errors }) {
                       <Checkbox
                         checked={!!f.value}
                         onChange={(e) => f.onChange(e.target.checked)}
+                        color="primary"
                       />
                     }
                     label={field.label}
@@ -287,10 +323,17 @@ export default function FormField({ field, control, errors }) {
             rules={rules}
             render={({ field: f }) => (
               <FormControl fullWidth error={!!error}>
-                <FormLabel sx={{ fontWeight: 600, mb: 1.5, color: "text.primary", fontSize: "0.95rem" }}>
+                <FormLabel sx={{ fontWeight: 600, mb: 1.5, color: "text.primary", fontSize: { xs: "0.92rem", sm: "0.98rem" } }}>
                   {field.label}
                 </FormLabel>
-                <FormGroup row sx={{ display: "flex", flexWrap: "wrap", gap: 1.5 }}>
+                <FormGroup
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    gap: { xs: 1.2, sm: 1.5 },
+                  }}
+                >
                   {(field.options || []).map((opt) => {
                     const isChecked = Array.isArray(f.value) && f.value.includes(opt);
                     return (
@@ -312,22 +355,24 @@ export default function FormField({ field, control, errors }) {
                         }
                         label={opt}
                         sx={{
-                          border: isChecked ? "2px solid #2e7d32" : "1.5px solid #e0e0e0",
+                          flex: { xs: "1 1 100%", sm: "1 1 calc(50% - 12px)", md: "0 1 auto" },
+                          border: isChecked ? "2px solid #2e7d32" : "1.5px solid #e2e8f0",
                           bgcolor: isChecked ? "rgba(46, 125, 50, 0.08)" : "#ffffff",
                           borderRadius: 2.5,
-                          px: 2,
-                          py: 0.8,
+                          px: { xs: 1.5, sm: 2 },
+                          py: { xs: 1, sm: 0.8 },
                           m: 0,
                           cursor: "pointer",
                           transition: "all 0.2s ease-in-out",
-                          boxShadow: isChecked ? "0 2px 8px rgba(46, 125, 50, 0.15)" : "0 1px 3px rgba(0,0,0,0.05)",
+                          boxShadow: isChecked ? "0 2px 8px rgba(46, 125, 50, 0.15)" : "0 1px 3px rgba(0,0,0,0.04)",
                           "&:hover": {
                             borderColor: "primary.main",
                             bgcolor: "rgba(46, 125, 50, 0.04)",
                             transform: "translateY(-1px)",
                           },
                           "& .MuiFormControlLabel-label": {
-                            fontWeight: isChecked ? 600 : 500,
+                            fontWeight: isChecked ? 700 : 500,
+                            fontSize: { xs: "0.9rem", sm: "0.95rem" },
                             color: isChecked ? "primary.dark" : "text.primary",
                           },
                         }}
