@@ -169,9 +169,8 @@
       "fields": [
         {
           "name": "servicesNeeded",
-          "label": "మీకు కావలసిన సేవలను ఎంచుకోండి (బహుళ ఎంపిక)",
-          "type": "multiselect",
-          "placeholder": "ఒకటి లేదా అంతకంటే ఎక్కువ వ్యవసాయ సేవలను ఎంచుకోండి",
+          "label": "మీకు కావలసిన సేవలను ఎంచుకోండి",
+          "type": "checkbox-group",
           "required": true,
           "order": 1,
           "options": ["Drone", "Tractor", "JCB", "Crop Cutting Machine", "Groundnut Machine"],

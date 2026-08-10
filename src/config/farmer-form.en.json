@@ -169,9 +169,8 @@
       "fields": [
         {
           "name": "servicesNeeded",
-          "label": "Select the Services Needed (Multi-Select)",
-          "type": "multiselect",
-          "placeholder": "Choose one or more agricultural services",
+          "label": "Select the Services You Need",
+          "type": "checkbox-group",
           "required": true,
           "order": 1,
           "options": ["Drone", "Tractor", "JCB", "Crop Cutting Machine", "Groundnut Machine"],

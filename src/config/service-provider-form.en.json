@@ -132,9 +132,8 @@
       "fields": [
         {
           "name": "servicesProvided",
-          "label": "Select the Services Provided (Multi-Select)",
-          "type": "multiselect",
-          "placeholder": "Choose services you can provide",
+          "label": "Select the Services You Can Provide",
+          "type": "checkbox-group",
           "required": true,
           "order": 1,
           "options": ["Drone", "Tractor", "JCB", "Crop Cutting Machine", "Groundnut Machine"],

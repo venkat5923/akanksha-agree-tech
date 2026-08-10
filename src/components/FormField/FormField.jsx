@@ -287,27 +287,53 @@ export default function FormField({ field, control, errors }) {
             rules={rules}
             render={({ field: f }) => (
               <FormControl fullWidth error={!!error}>
-                <FormLabel>{field.label}</FormLabel>
-                <FormGroup row>
-                  {(field.options || []).map((opt) => (
-                    <FormControlLabel
-                      key={opt}
-                      control={
-                        <Checkbox
-                          checked={Array.isArray(f.value) && f.value.includes(opt)}
-                          onChange={(e) => {
-                            const current = Array.isArray(f.value) ? f.value : [];
-                            if (e.target.checked) {
-                              f.onChange([...current, opt]);
-                            } else {
-                              f.onChange(current.filter((v) => v !== opt));
-                            }
-                          }}
-                        />
-                      }
-                      label={opt}
-                    />
-                  ))}
+                <FormLabel sx={{ fontWeight: 600, mb: 1.5, color: "text.primary", fontSize: "0.95rem" }}>
+                  {field.label}
+                </FormLabel>
+                <FormGroup row sx={{ display: "flex", flexWrap: "wrap", gap: 1.5 }}>
+                  {(field.options || []).map((opt) => {
+                    const isChecked = Array.isArray(f.value) && f.value.includes(opt);
+                    return (
+                      <FormControlLabel
+                        key={opt}
+                        control={
+                          <Checkbox
+                            checked={isChecked}
+                            color="primary"
+                            onChange={(e) => {
+                              const current = Array.isArray(f.value) ? f.value : [];
+                              if (e.target.checked) {
+                                f.onChange([...current, opt]);
+                              } else {
+                                f.onChange(current.filter((v) => v !== opt));
+                              }
+                            }}
+                          />
+                        }
+                        label={opt}
+                        sx={{
+                          border: isChecked ? "2px solid #2e7d32" : "1.5px solid #e0e0e0",
+                          bgcolor: isChecked ? "rgba(46, 125, 50, 0.08)" : "#ffffff",
+                          borderRadius: 2.5,
+                          px: 2,
+                          py: 0.8,
+                          m: 0,
+                          cursor: "pointer",
+                          transition: "all 0.2s ease-in-out",
+                          boxShadow: isChecked ? "0 2px 8px rgba(46, 125, 50, 0.15)" : "0 1px 3px rgba(0,0,0,0.05)",
+                          "&:hover": {
+                            borderColor: "primary.main",
+                            bgcolor: "rgba(46, 125, 50, 0.04)",
+                            transform: "translateY(-1px)",
+                          },
+                          "& .MuiFormControlLabel-label": {
+                            fontWeight: isChecked ? 600 : 500,
+                            color: isChecked ? "primary.dark" : "text.primary",
+                          },
+                        }}
+                      />
+                    );
+                  })}
                 </FormGroup>
                 {errorMsg && <FormHelperText>{errorMsg}</FormHelperText>}
               </FormControl>

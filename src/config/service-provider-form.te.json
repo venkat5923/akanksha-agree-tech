@@ -132,9 +132,8 @@
       "fields": [
         {
           "name": "servicesProvided",
-          "label": "మీరు అందించగల సేవలను ఎంచుకోండి (బహుళ ఎంపిక)",
-          "type": "multiselect",
-          "placeholder": "మీరు అందించే సేవలను ఎంచుకోండి",
+          "label": "మీరు అందించగల సేవలను ఎంచుకోండి",
+          "type": "checkbox-group",
           "required": true,
           "order": 1,
           "options": ["Drone", "Tractor", "JCB", "Crop Cutting Machine", "Groundnut Machine"],
