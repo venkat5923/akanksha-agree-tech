@@ -25,7 +25,18 @@ export function isFieldVisible(field, formValues) {
   }
 
   if (contains !== undefined) {
-    return Array.isArray(dependentValue) && dependentValue.includes(contains);
+    if (Array.isArray(dependentValue)) {
+      return dependentValue.some(
+        (item) =>
+          item === contains ||
+          (typeof item === "string" &&
+            item.toLowerCase().includes(contains.toLowerCase()))
+      );
+    }
+    if (typeof dependentValue === "string") {
+      return dependentValue.toLowerCase().includes(contains.toLowerCase());
+    }
+    return false;
   }
 
   return true;

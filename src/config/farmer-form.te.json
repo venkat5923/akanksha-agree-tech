@@ -173,8 +173,20 @@
           "type": "checkbox-group",
           "required": true,
           "order": 1,
-          "options": ["Drone", "Tractor", "JCB", "Crop Cutting Machine", "Groundnut Machine", "Labour"],
+          "options": ["Drone", "Tractor", "JCB", "Crop Cutting Machine", "Groundnut Machine", "Labour", "Others"],
           "defaultValue": []
+        },
+        {
+          "name": "otherMainServiceDetails",
+          "label": "ఇతర వ్యవసాయ సేవా వివరాలు పేర్కొనండి",
+          "type": "text",
+          "placeholder": "కావలసిన ఇతర సేవల వివరాలు నమోదు చేయండి",
+          "required": false,
+          "order": 2,
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "servicesNeeded", "contains": "Others" }
+          }
         },
         {
           "name": "droneSprayingType",
@@ -182,7 +194,7 @@
           "type": "multiselect",
           "placeholder": "డ్రోన్ ఫీచర్లు ఎంచుకోండి",
           "required": false,
-          "order": 2,
+          "order": 3,
           "options": [
             "Pesticide Spraying (పురుగుమందుల స్ప్రేయింగ్)",
             "Fertilizer Spraying (ఎరువుల స్ప్రేయింగ్)",
@@ -202,11 +214,24 @@
             "Ripeness Estimation (పంట పక్వత అంచనా)",
             "Fish Feed Dispensing (చేపల మేత పంపిణీ)",
             "Livestock Monitoring (పశువుల పర్యవేక్షణ)",
-            "Aerial Delivery (గగనతల రవాణా)"
+            "Aerial Delivery (గగనతల రవాణా)",
+            "Others (ఇతరములు)"
           ],
           "defaultValue": [],
           "conditional": {
             "showWhen": { "field": "servicesNeeded", "contains": "Drone" }
+          }
+        },
+        {
+          "name": "otherDroneDetails",
+          "label": "ఇతర డ్రోన్ పనుల వివరాలు",
+          "type": "text",
+          "placeholder": "కావలసిన ఇతర డ్రోన్ పనులను నమోదు చేయండి",
+          "required": false,
+          "order": 4,
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "droneSprayingType", "contains": "Others" }
           }
         },
         {
@@ -215,7 +240,7 @@
           "type": "multiselect",
           "placeholder": "ట్రాక్టర్ పనులను ఎంచుకోండి",
           "required": false,
-          "order": 3,
+          "order": 5,
           "options": [
             "Ploughing (నాగలి దుక్కి)",
             "Tilling (రోటవేటర్ దుక్కి)",
@@ -236,11 +261,24 @@
             "Loader Operations (లోడర్ పనులు)",
             "Land Clearing (భూమి శుభ్రం చేయుట)",
             "Road / Field Grading (రోడ్డు/పొలం గ్రేడింగ్)",
-            "Baler Operations (గడ్డి బేలర్ పనులు)"
+            "Baler Operations (గడ్డి బేలర్ పనులు)",
+            "Others (ఇతరములు)"
           ],
           "defaultValue": [],
           "conditional": {
             "showWhen": { "field": "servicesNeeded", "contains": "Tractor" }
+          }
+        },
+        {
+          "name": "otherTractorDetails",
+          "label": "ఇతర ట్రాక్టర్ పనుల వివరాలు",
+          "type": "text",
+          "placeholder": "కావలసిన ఇతర ట్రాక్టర్ పనులను నమోదు చేయండి",
+          "required": false,
+          "order": 6,
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "tractorOperationType", "contains": "Others" }
           }
         },
         {
@@ -249,7 +287,7 @@
           "type": "multiselect",
           "placeholder": "JCB పనులను ఎంచుకోండి",
           "required": false,
-          "order": 4,
+          "order": 7,
           "options": [
             "Earth Excavation (మట్టి తవ్వకం)",
             "Trench Digging (ట్రెంచ్ / కాలువ తవ్వకం)",
@@ -270,11 +308,24 @@
             "Canal / Drainage Digging (డ్రైనేజీ తవ్వకం)",
             "Post Hole Digging (స్తంభాల గుంతలు తవ్వడం)",
             "Material Shifting (మట్టి/రాయి తరలింపు)",
-            "Snow / Muck Removal (బురద తొలగింపు)"
+            "Snow / Muck Removal (బురద తొలగింపు)",
+            "Others (ఇతరములు)"
           ],
           "defaultValue": [],
           "conditional": {
             "showWhen": { "field": "servicesNeeded", "contains": "JCB" }
+          }
+        },
+        {
+          "name": "otherJcbDetails",
+          "label": "ఇతర JCB పనుల వివరాలు",
+          "type": "text",
+          "placeholder": "కావలసిన ఇతర JCB పనులను నమోదు చేయండి",
+          "required": false,
+          "order": 8,
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "jcbOperationType", "contains": "Others" }
           }
         },
         {
@@ -283,7 +334,7 @@
           "type": "multiselect",
           "placeholder": "హార్వెస్టర్ రకాన్ని ఎంచుకోండి",
           "required": false,
-          "order": 5,
+          "order": 9,
           "options": [
             "Wheat Cutting (గోధుమ కోత)",
             "Paddy / Rice Harvesting (వరి కోత)",
@@ -299,11 +350,24 @@
             "Straw Cutting (గడ్డి కోత / ముక్కలు)",
             "Reaping (రీపింగ్)",
             "Windrowing (వరసలలో అమర్చడం)",
-            "Stubble Cutting (మొద్దుల కోత)"
+            "Stubble Cutting (మొద్దుల కోత)",
+            "Others (ఇతరములు)"
           ],
           "defaultValue": [],
           "conditional": {
             "showWhen": { "field": "servicesNeeded", "contains": "Crop Cutting Machine" }
+          }
+        },
+        {
+          "name": "otherCropCuttingDetails",
+          "label": "ఇతర పంట కోత పనుల వివరాలు",
+          "type": "text",
+          "placeholder": "కావలసిన ఇతర పంట కోత పనులను నమోదు చేయండి",
+          "required": false,
+          "order": 10,
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "cropCuttingType", "contains": "Others" }
           }
         },
         {
@@ -312,7 +376,7 @@
           "type": "multiselect",
           "placeholder": "వేరుశనగ మిషన్ రకాన్ని ఎంచుకోండి",
           "required": false,
-          "order": 6,
+          "order": 11,
           "options": [
             "Groundnut Digging (వేరుశనగ తవ్వకం)",
             "Groundnut Lifting (వేరుశనగ పైకి లేపుట)",
@@ -325,11 +389,24 @@
             "Winnowing / Grading (తూర్పారబట్టడం / గ్రేడింగ్)",
             "Soil Clod Breaking (మట్టి గడ్డలు పగులగొట్టుట)",
             "Row Planting / Sowing (వరుసలలో విత్తనం వేయుట)",
-            "Inverted Windrowing (కాయలు ఎండబెట్టే వరుసల అమరిక)"
+            "Inverted Windrowing (కాయలు ఎండబెట్టే వరుసల అమరిక)",
+            "Others (ఇతరములు)"
           ],
           "defaultValue": [],
           "conditional": {
             "showWhen": { "field": "servicesNeeded", "contains": "Groundnut Machine" }
+          }
+        },
+        {
+          "name": "otherGroundnutDetails",
+          "label": "ఇతర వేరుశనగ మిషన్ పనుల వివరాలు",
+          "type": "text",
+          "placeholder": "కావలసిన ఇతర వేరుశనగ మిషన్ పనులను నమోదు చేయండి",
+          "required": false,
+          "order": 12,
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "groundnutMachineType", "contains": "Others" }
           }
         },
         {
@@ -338,7 +415,7 @@
           "type": "multiselect",
           "placeholder": "కూలీల పనులను ఎంచుకోండి",
           "required": false,
-          "order": 7,
+          "order": 13,
           "options": [
             "Sowing & Transplantation (నాట్లు వేయుట)",
             "Weeding & Intercultural Work (కలుపు తీయుట)",
@@ -347,11 +424,24 @@
             "Chilli & Vegetable Plucking (మిర్చి/కూరగాయల కోత)",
             "Fertilizer & Pesticide Application (ఎరువులు/మందులు చల్లుట)",
             "Loading, Bagging & Transport (బస్తాలు నింపుట / లోడింగ్)",
-            "General Farm Work (సాధారణ పొలం పనులు)"
+            "General Farm Work (సాధారణ పొలం పనులు)",
+            "Others (ఇతరములు)"
           ],
           "defaultValue": [],
           "conditional": {
             "showWhen": { "field": "servicesNeeded", "contains": "Labour" }
+          }
+        },
+        {
+          "name": "otherLabourDetails",
+          "label": "ఇతర కూలీల పనుల వివరాలు",
+          "type": "text",
+          "placeholder": "కావలసిన ఇతర కూలీల పనులను నమోదు చేయండి",
+          "required": false,
+          "order": 14,
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "labourType", "contains": "Others" }
           }
         },
         {
@@ -360,7 +450,7 @@
           "type": "number",
           "placeholder": "ఎంతమంది కూలీలు కావాలో నమోదు చేయండి (ఉదా: 5, 10)",
           "required": false,
-          "order": 8,
+          "order": 15,
           "validation": { "min": 1, "max": 500 },
           "defaultValue": "",
           "conditional": {

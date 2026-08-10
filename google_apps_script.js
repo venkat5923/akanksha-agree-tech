@@ -18,7 +18,7 @@
 function setupSpreadsheet() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
 
-  // 1. Setup 'Farmers' Table (22 Complete Columns - Field Operator Name first)
+  // 1. Setup 'Farmers' Table (29 Complete Columns - Field Operator Name first)
   const farmerHeaders = [
     "Field Operator Name",
     "Submission Time",
@@ -35,18 +35,25 @@ function setupSpreadsheet() {
     "Crop Type",
     "Land Area (acres)",
     "Services Needed",
+    "Other Service Details",
     "Drone Operations",
+    "Other Drone Details",
     "Tractor Operations",
+    "Other Tractor Details",
     "JCB Operations",
+    "Other JCB Details",
     "Crop Cutting Operations",
+    "Other Crop Cutting Details",
     "Groundnut Machine Operations",
+    "Other Groundnut Machine Details",
     "Labour Work Type",
+    "Other Labour Details",
     "Number of Labourers"
   ];
   let farmerSheet = ss.getSheetByName("Farmers") || ss.insertSheet("Farmers");
   buildStyledTable(farmerSheet, farmerHeaders, "#1b5e20");
 
-  // 2. Setup 'Service_Providers' Table (17 Complete Columns)
+  // 2. Setup 'Service_Providers' Table (26 Complete Columns - Field Operator Name first)
   const providerHeaders = [
     "Field Operator Name",
     "Submission Time",
@@ -60,11 +67,20 @@ function setupSpreadsheet() {
     "District (Zilla)",
     "Mandal",
     "Services Provided",
+    "Other Service Details",
     "Drone Capabilities",
+    "Other Drone Details",
     "Tractor Capabilities",
+    "Other Tractor Details",
     "JCB Capabilities",
+    "Other JCB Details",
     "Crop Cutting Capabilities",
-    "Groundnut Machine Capabilities"
+    "Other Crop Cutting Details",
+    "Groundnut Machine Capabilities",
+    "Other Groundnut Machine Details",
+    "Labour Capabilities",
+    "Other Labour Details",
+    "Available Labour Team Size"
   ];
   let providerSheet = ss.getSheetByName("Service_Providers") || ss.insertSheet("Service_Providers");
   buildStyledTable(providerSheet, providerHeaders, "#1565c0");
@@ -75,7 +91,7 @@ function setupSpreadsheet() {
     ss.deleteSheet(defaultSheet);
   }
 
-  Logger.log("✅ Tables formatted successfully with all headings matching the forms!");
+  Logger.log("✅ Tables formatted with all 29 Farmer and 26 Provider headings!");
 }
 
 function buildStyledTable(sheet, headers, headerColor) {
@@ -115,7 +131,7 @@ function buildStyledTable(sheet, headers, headerColor) {
     .setFontSize(10);
 
   sheet.getRange(2, 1, 499, 1).setHorizontalAlignment("center");
-  sheet.getRange(2, 5, 499, 1).setHorizontalAlignment("center");
+  sheet.getRange(2, 2, 499, 1).setHorizontalAlignment("center");
 }
 
 function formatValue(val) {
@@ -164,11 +180,20 @@ function doPost(e) {
         formatValue(data.zilla),
         formatValue(data.mandal),
         formatValue(data.servicesProvided),
+        formatValue(data.otherMainServiceDetails),
         formatValue(data.droneCapabilities),
+        formatValue(data.otherDroneDetails),
         formatValue(data.tractorCapabilities),
+        formatValue(data.otherTractorDetails),
         formatValue(data.jcbCapabilities),
+        formatValue(data.otherJcbDetails),
         formatValue(data.cropCuttingCapabilities),
-        formatValue(data.groundnutMachineCapabilities)
+        formatValue(data.otherCropCuttingDetails),
+        formatValue(data.groundnutMachineCapabilities),
+        formatValue(data.otherGroundnutDetails),
+        formatValue(data.labourCapabilities),
+        formatValue(data.otherLabourDetails),
+        formatValue(data.availableLabourCount)
       ]);
     } else {
       // Farmer Form
@@ -193,12 +218,19 @@ function doPost(e) {
         formatValue(data.cropType),
         formatValue(data.landArea),
         formatValue(data.servicesNeeded),
+        formatValue(data.otherMainServiceDetails),
         formatValue(data.droneSprayingType),
+        formatValue(data.otherDroneDetails),
         formatValue(data.tractorOperationType),
+        formatValue(data.otherTractorDetails),
         formatValue(data.jcbOperationType),
+        formatValue(data.otherJcbDetails),
         formatValue(data.cropCuttingType),
+        formatValue(data.otherCropCuttingDetails),
         formatValue(data.groundnutMachineType),
+        formatValue(data.otherGroundnutDetails),
         formatValue(data.labourType),
+        formatValue(data.otherLabourDetails),
         formatValue(data.labourCount)
       ]);
     }

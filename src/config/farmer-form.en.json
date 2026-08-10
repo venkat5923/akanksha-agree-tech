@@ -173,8 +173,20 @@
           "type": "checkbox-group",
           "required": true,
           "order": 1,
-          "options": ["Drone", "Tractor", "JCB", "Crop Cutting Machine", "Groundnut Machine", "Labour"],
+          "options": ["Drone", "Tractor", "JCB", "Crop Cutting Machine", "Groundnut Machine", "Labour", "Others"],
           "defaultValue": []
+        },
+        {
+          "name": "otherMainServiceDetails",
+          "label": "Specify Other Agricultural Service(s)",
+          "type": "text",
+          "placeholder": "Enter details of other services needed",
+          "required": false,
+          "order": 2,
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "servicesNeeded", "contains": "Others" }
+          }
         },
         {
           "name": "droneSprayingType",
@@ -182,7 +194,7 @@
           "type": "multiselect",
           "placeholder": "Select drone features",
           "required": false,
-          "order": 2,
+          "order": 3,
           "options": [
             "Pesticide Spraying",
             "Fertilizer Spraying",
@@ -202,11 +214,24 @@
             "Ripeness Estimation",
             "Fish Feed Dispensing",
             "Livestock Monitoring",
-            "Aerial Delivery"
+            "Aerial Delivery",
+            "Others"
           ],
           "defaultValue": [],
           "conditional": {
             "showWhen": { "field": "servicesNeeded", "contains": "Drone" }
+          }
+        },
+        {
+          "name": "otherDroneDetails",
+          "label": "Specify Other Drone Operations",
+          "type": "text",
+          "placeholder": "Enter other drone operations needed",
+          "required": false,
+          "order": 4,
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "droneSprayingType", "contains": "Others" }
           }
         },
         {
@@ -215,7 +240,7 @@
           "type": "multiselect",
           "placeholder": "Select tractor operations",
           "required": false,
-          "order": 3,
+          "order": 5,
           "options": [
             "Ploughing",
             "Tilling",
@@ -236,11 +261,24 @@
             "Loader Operations",
             "Land Clearing",
             "Road / Field Grading",
-            "Baler Operations"
+            "Baler Operations",
+            "Others"
           ],
           "defaultValue": [],
           "conditional": {
             "showWhen": { "field": "servicesNeeded", "contains": "Tractor" }
+          }
+        },
+        {
+          "name": "otherTractorDetails",
+          "label": "Specify Other Tractor Operations",
+          "type": "text",
+          "placeholder": "Enter other tractor implements / operations needed",
+          "required": false,
+          "order": 6,
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "tractorOperationType", "contains": "Others" }
           }
         },
         {
@@ -249,7 +287,7 @@
           "type": "multiselect",
           "placeholder": "Select JCB operations",
           "required": false,
-          "order": 4,
+          "order": 7,
           "options": [
             "Earth Excavation",
             "Trench Digging",
@@ -270,11 +308,24 @@
             "Canal / Drainage Digging",
             "Post Hole Digging",
             "Material Shifting",
-            "Snow / Muck Removal"
+            "Snow / Muck Removal",
+            "Others"
           ],
           "defaultValue": [],
           "conditional": {
             "showWhen": { "field": "servicesNeeded", "contains": "JCB" }
+          }
+        },
+        {
+          "name": "otherJcbDetails",
+          "label": "Specify Other JCB Operations",
+          "type": "text",
+          "placeholder": "Enter other JCB operations needed",
+          "required": false,
+          "order": 8,
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "jcbOperationType", "contains": "Others" }
           }
         },
         {
@@ -283,7 +334,7 @@
           "type": "multiselect",
           "placeholder": "Select harvester type",
           "required": false,
-          "order": 5,
+          "order": 9,
           "options": [
             "Wheat Cutting",
             "Paddy / Rice Harvesting",
@@ -299,11 +350,24 @@
             "Straw Cutting",
             "Reaping",
             "Windrowing",
-            "Stubble Cutting"
+            "Stubble Cutting",
+            "Others"
           ],
           "defaultValue": [],
           "conditional": {
             "showWhen": { "field": "servicesNeeded", "contains": "Crop Cutting Machine" }
+          }
+        },
+        {
+          "name": "otherCropCuttingDetails",
+          "label": "Specify Other Harvesting Operations",
+          "type": "text",
+          "placeholder": "Enter other crop cutting operations needed",
+          "required": false,
+          "order": 10,
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "cropCuttingType", "contains": "Others" }
           }
         },
         {
@@ -312,7 +376,7 @@
           "type": "multiselect",
           "placeholder": "Select groundnut machine type",
           "required": false,
-          "order": 6,
+          "order": 11,
           "options": [
             "Groundnut Digging",
             "Groundnut Lifting",
@@ -325,11 +389,24 @@
             "Winnowing / Grading",
             "Soil Clod Breaking",
             "Row Planting / Sowing",
-            "Inverted Windrowing"
+            "Inverted Windrowing",
+            "Others"
           ],
           "defaultValue": [],
           "conditional": {
             "showWhen": { "field": "servicesNeeded", "contains": "Groundnut Machine" }
+          }
+        },
+        {
+          "name": "otherGroundnutDetails",
+          "label": "Specify Other Groundnut Machine Operations",
+          "type": "text",
+          "placeholder": "Enter other groundnut machine operations needed",
+          "required": false,
+          "order": 12,
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "groundnutMachineType", "contains": "Others" }
           }
         },
         {
@@ -338,7 +415,7 @@
           "type": "multiselect",
           "placeholder": "Select labour work types needed",
           "required": false,
-          "order": 7,
+          "order": 13,
           "options": [
             "Sowing & Transplantation (నాట్లు వేయుట)",
             "Weeding & Intercultural Work (కలుపు తీయుట)",
@@ -347,11 +424,24 @@
             "Chilli & Vegetable Plucking (మిర్చి/కూరగాయల కోత)",
             "Fertilizer & Pesticide Application (ఎరువులు/మందులు చల్లుట)",
             "Loading, Bagging & Transport (బస్తాలు నింపుట / లోడింగ్)",
-            "General Farm Work (సాధారణ పొలం పనులు)"
+            "General Farm Work (సాధారణ పొలం పనులు)",
+            "Others"
           ],
           "defaultValue": [],
           "conditional": {
             "showWhen": { "field": "servicesNeeded", "contains": "Labour" }
+          }
+        },
+        {
+          "name": "otherLabourDetails",
+          "label": "Specify Other Labour Work Details",
+          "type": "text",
+          "placeholder": "Enter other labour work details needed",
+          "required": false,
+          "order": 14,
+          "defaultValue": "",
+          "conditional": {
+            "showWhen": { "field": "labourType", "contains": "Others" }
           }
         },
         {
@@ -360,7 +450,7 @@
           "type": "number",
           "placeholder": "Enter number of workers required (e.g. 5, 10)",
           "required": false,
-          "order": 8,
+          "order": 15,
           "validation": { "min": 1, "max": 500 },
           "defaultValue": "",
           "conditional": {
