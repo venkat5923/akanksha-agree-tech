@@ -26,6 +26,9 @@ export const translations = {
     validationEmail: "Please enter a valid email address",
     validationPhone: "Please enter a valid 10-digit phone number",
     validationPattern: "format is invalid",
+    done: "Done",
+    clear: "Clear All",
+    selected: "Selected",
   },
   te: {
     appName: "ఆకాంక్ష అగ్రీటెక్",
@@ -50,5 +53,8 @@ export const translations = {
     validationEmail: "దయచేసి సరైన ఇమెయిల్ చిరునామా నమోదు చేయండి",
     validationPhone: "దయచేసి సరైన 10 అంకెల ఫోన్ నంబర్ నమోదు చేయండి",
     validationPattern: "ఫార్మాట్ సరైనది కాదు",
+    done: "పూర్తయింది (Done)",
+    clear: "అన్నీ తీసివేయి (Clear)",
+    selected: "ఎంచుకోబడ్డాయి",
   },
 };
