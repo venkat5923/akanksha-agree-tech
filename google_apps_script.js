@@ -36,7 +36,7 @@ function getOrCreateSpreadsheet() {
 function setupSpreadsheet() {
   const ss = getOrCreateSpreadsheet();
 
-  // 1. Setup 'Farmers' Table (29 Complete Columns - Field Operator Name first)
+  // 1. Setup 'Farmers' Table (29 Complete Columns - Dedicated Service Needed Columns)
   const farmerHeaders = [
     "Field Operator Name",
     "Submission Time",
@@ -52,26 +52,26 @@ function setupSpreadsheet() {
     "Land Type",
     "Crop Type",
     "Land Area (acres)",
-    "Services Needed",
-    "Other Service Details",
-    "Drone Operations",
+    "Services Needed (Categories)",
+    "Other Main Service Details",
+    "Drone Services Needed",
     "Other Drone Details",
-    "Tractor Operations",
+    "Tractor Services Needed",
     "Other Tractor Details",
-    "JCB Operations",
+    "JCB Services Needed",
     "Other JCB Details",
-    "Crop Cutting Operations",
+    "Crop Cutting Services Needed",
     "Other Crop Cutting Details",
-    "Groundnut Machine Operations",
-    "Other Groundnut Machine Details",
-    "Labour Work Type",
+    "Groundnut Machine Services Needed",
+    "Other Groundnut Details",
+    "Labour Work Needed",
     "Other Labour Details",
-    "Number of Labourers"
+    "Number of Labourers Needed"
   ];
   let farmerSheet = ss.getSheetByName("Farmers") || ss.insertSheet("Farmers");
   buildStyledTable(farmerSheet, farmerHeaders, "#1b5e20");
 
-  // 2. Setup 'Service_Providers' Table (26 Complete Columns - Field Operator Name first)
+  // 2. Setup 'Service_Providers' Table (26 Complete Columns - Dedicated Service Provided Columns)
   const providerHeaders = [
     "Field Operator Name",
     "Submission Time",
@@ -84,19 +84,19 @@ function setupSpreadsheet() {
     "State",
     "District (Zilla)",
     "Mandal",
-    "Services Provided",
-    "Other Service Details",
-    "Drone Capabilities",
+    "Services Provided (Categories)",
+    "Other Main Service Details",
+    "Drone Services Provided",
     "Other Drone Details",
-    "Tractor Capabilities",
+    "Tractor Services Provided",
     "Other Tractor Details",
-    "JCB Capabilities",
+    "JCB Services Provided",
     "Other JCB Details",
-    "Crop Cutting Capabilities",
+    "Crop Cutting Services Provided",
     "Other Crop Cutting Details",
-    "Groundnut Machine Capabilities",
-    "Other Groundnut Machine Details",
-    "Labour Capabilities",
+    "Groundnut Machine Services Provided",
+    "Other Groundnut Details",
+    "Labour Services Provided",
     "Other Labour Details",
     "Available Labour Team Size"
   ];
@@ -109,7 +109,7 @@ function setupSpreadsheet() {
     ss.deleteSheet(defaultSheet);
   }
 
-  Logger.log("✅ Tables formatted with all 29 Farmer and 26 Provider headings!");
+  Logger.log("✅ Tables formatted with separate dedicated columns for Farmers and Service Providers!");
 }
 
 function buildStyledTable(sheet, headers, headerColor) {
@@ -131,12 +131,12 @@ function buildStyledTable(sheet, headers, headerColor) {
     .setVerticalAlignment("middle")
     .setWrap(true);
 
-  sheet.setRowHeight(1, 40);
+  sheet.setRowHeight(1, 44);
   sheet.setFrozenRows(1);
 
   for (let i = 1; i <= colCount; i++) {
     const headerTitle = headers[i - 1];
-    const width = Math.max(160, headerTitle.length * 11);
+    const width = Math.max(170, headerTitle.length * 10);
     sheet.setColumnWidth(i, width);
   }
 
@@ -154,9 +154,15 @@ function buildStyledTable(sheet, headers, headerColor) {
 
 function formatValue(val) {
   if (Array.isArray(val)) {
-    return val.join(", ");
+    return val.filter(v => v !== null && v !== undefined && v !== "").join(", ");
   }
   return val !== null && val !== undefined ? val : "";
+}
+
+function isSelected(categoryList, keyword) {
+  if (!categoryList) return false;
+  const list = Array.isArray(categoryList) ? categoryList : [categoryList];
+  return list.some(item => String(item).toLowerCase().includes(keyword.toLowerCase()));
 }
 
 /**
@@ -185,6 +191,17 @@ function doPost(e) {
         setupSpreadsheet();
         sheet = ss.getSheetByName("Service_Providers");
       }
+
+      // Check relevant services selected by operator
+      const services = data.servicesProvided || [];
+      const hasDrone = isSelected(services, "drone");
+      const hasTractor = isSelected(services, "tractor");
+      const hasJcb = isSelected(services, "jcb");
+      const hasCropCutting = isSelected(services, "crop cutting") || isSelected(services, "cutting");
+      const hasGroundnut = isSelected(services, "groundnut");
+      const hasLabour = isSelected(services, "labour");
+      const hasOthers = isSelected(services, "other");
+
       sheet.appendRow([
         formatValue(data.fieldOperatorName),
         time,
@@ -197,21 +214,21 @@ function doPost(e) {
         formatValue(data.state),
         formatValue(data.zilla),
         formatValue(data.mandal),
-        formatValue(data.servicesProvided),
-        formatValue(data.otherMainServiceDetails),
-        formatValue(data.droneCapabilities),
-        formatValue(data.otherDroneDetails),
-        formatValue(data.tractorCapabilities),
-        formatValue(data.otherTractorDetails),
-        formatValue(data.jcbCapabilities),
-        formatValue(data.otherJcbDetails),
-        formatValue(data.cropCuttingCapabilities),
-        formatValue(data.otherCropCuttingDetails),
-        formatValue(data.groundnutMachineCapabilities),
-        formatValue(data.otherGroundnutDetails),
-        formatValue(data.labourCapabilities),
-        formatValue(data.otherLabourDetails),
-        formatValue(data.availableLabourCount)
+        formatValue(services),
+        hasOthers ? formatValue(data.otherMainServiceDetails) : "",
+        hasDrone ? formatValue(data.droneCapabilities) : "",
+        hasDrone && isSelected(data.droneCapabilities, "other") ? formatValue(data.otherDroneDetails) : "",
+        hasTractor ? formatValue(data.tractorCapabilities) : "",
+        hasTractor && isSelected(data.tractorCapabilities, "other") ? formatValue(data.otherTractorDetails) : "",
+        hasJcb ? formatValue(data.jcbCapabilities) : "",
+        hasJcb && isSelected(data.jcbCapabilities, "other") ? formatValue(data.otherJcbDetails) : "",
+        hasCropCutting ? formatValue(data.cropCuttingCapabilities) : "",
+        hasCropCutting && isSelected(data.cropCuttingCapabilities, "other") ? formatValue(data.otherCropCuttingDetails) : "",
+        hasGroundnut ? formatValue(data.groundnutMachineCapabilities) : "",
+        hasGroundnut && isSelected(data.groundnutMachineCapabilities, "other") ? formatValue(data.otherGroundnutDetails) : "",
+        hasLabour ? formatValue(data.labourCapabilities) : "",
+        hasLabour && isSelected(data.labourCapabilities, "other") ? formatValue(data.otherLabourDetails) : "",
+        hasLabour ? formatValue(data.availableLabourCount) : ""
       ]);
     } else {
       // Farmer Form
@@ -220,6 +237,17 @@ function doPost(e) {
         setupSpreadsheet();
         sheet = ss.getSheetByName("Farmers");
       }
+
+      // Check relevant services requested by farmer
+      const services = data.servicesNeeded || [];
+      const hasDrone = isSelected(services, "drone");
+      const hasTractor = isSelected(services, "tractor");
+      const hasJcb = isSelected(services, "jcb");
+      const hasCropCutting = isSelected(services, "crop cutting") || isSelected(services, "cutting");
+      const hasGroundnut = isSelected(services, "groundnut");
+      const hasLabour = isSelected(services, "labour");
+      const hasOthers = isSelected(services, "other");
+
       sheet.appendRow([
         formatValue(data.fieldOperatorName),
         time,
@@ -235,21 +263,21 @@ function doPost(e) {
         formatValue(data.landType),
         formatValue(data.cropType),
         formatValue(data.landArea),
-        formatValue(data.servicesNeeded),
-        formatValue(data.otherMainServiceDetails),
-        formatValue(data.droneSprayingType),
-        formatValue(data.otherDroneDetails),
-        formatValue(data.tractorOperationType),
-        formatValue(data.otherTractorDetails),
-        formatValue(data.jcbOperationType),
-        formatValue(data.otherJcbDetails),
-        formatValue(data.cropCuttingType),
-        formatValue(data.otherCropCuttingDetails),
-        formatValue(data.groundnutMachineType),
-        formatValue(data.otherGroundnutDetails),
-        formatValue(data.labourType),
-        formatValue(data.otherLabourDetails),
-        formatValue(data.labourCount)
+        formatValue(services),
+        hasOthers ? formatValue(data.otherMainServiceDetails) : "",
+        hasDrone ? formatValue(data.droneSprayingType) : "",
+        hasDrone && isSelected(data.droneSprayingType, "other") ? formatValue(data.otherDroneDetails) : "",
+        hasTractor ? formatValue(data.tractorOperationType) : "",
+        hasTractor && isSelected(data.tractorOperationType, "other") ? formatValue(data.otherTractorDetails) : "",
+        hasJcb ? formatValue(data.jcbOperationType) : "",
+        hasJcb && isSelected(data.jcbOperationType, "other") ? formatValue(data.otherJcbDetails) : "",
+        hasCropCutting ? formatValue(data.cropCuttingType) : "",
+        hasCropCutting && isSelected(data.cropCuttingType, "other") ? formatValue(data.otherCropCuttingDetails) : "",
+        hasGroundnut ? formatValue(data.groundnutMachineType) : "",
+        hasGroundnut && isSelected(data.groundnutMachineType, "other") ? formatValue(data.otherGroundnutDetails) : "",
+        hasLabour ? formatValue(data.labourType) : "",
+        hasLabour && isSelected(data.labourType, "other") ? formatValue(data.otherLabourDetails) : "",
+        hasLabour ? formatValue(data.labourCount) : ""
       ]);
     }
 
