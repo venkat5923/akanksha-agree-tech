@@ -4,9 +4,26 @@
   "description": "Register as a service provider to offer your services to farmers.",
   "sections": [
     {
+      "id": "operator",
+      "title": "Field Officer / Agent Information",
+      "order": 1,
+      "fields": [
+        {
+          "name": "fieldOperatorName",
+          "label": "Field Operator Name",
+          "type": "text",
+          "placeholder": "Enter field operator / agent name",
+          "required": true,
+          "order": 1,
+          "validation": { "minLength": 2, "maxLength": 50 },
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
       "id": "personal",
       "title": "Personal Information",
-      "order": 1,
+      "order": 2,
       "fields": [
         {
           "name": "fullName",
@@ -52,7 +69,7 @@
     {
       "id": "address",
       "title": "Address",
-      "order": 2,
+      "order": 3,
       "fields": [
         {
           "name": "addressLine",
@@ -111,7 +128,7 @@
     {
       "id": "service",
       "title": "Service Details",
-      "order": 3,
+      "order": 4,
       "fields": [
         {
           "name": "servicesProvided",

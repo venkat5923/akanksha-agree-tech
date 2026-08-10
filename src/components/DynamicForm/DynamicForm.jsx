@@ -31,8 +31,14 @@ export default function DynamicForm({ config }) {
   if (config?.sections) {
     config.sections.forEach((section) => {
       section.fields.forEach((field) => {
-        defaultValues[field.name] =
-          field.defaultValue !== undefined ? field.defaultValue : "";
+        if (field.name === "fieldOperatorName") {
+          defaultValues[field.name] =
+            localStorage.getItem("lastFieldOperatorName") ||
+            (field.defaultValue !== undefined ? field.defaultValue : "");
+        } else {
+          defaultValues[field.name] =
+            field.defaultValue !== undefined ? field.defaultValue : "";
+        }
       });
     });
   }
@@ -73,9 +79,15 @@ export default function DynamicForm({ config }) {
     setSubmitting(true);
     setSubmitError(null);
     try {
+      if (data.fieldOperatorName) {
+        localStorage.setItem("lastFieldOperatorName", data.fieldOperatorName);
+      }
       await submitFormData(config.formType, data);
       setSubmitSuccess(true);
-      reset();
+      reset({
+        ...defaultValues,
+        fieldOperatorName: data.fieldOperatorName || localStorage.getItem("lastFieldOperatorName") || "",
+      });
       // Scroll to top
       if (topRef.current) {
         topRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -90,7 +102,10 @@ export default function DynamicForm({ config }) {
   const handleReset = () => {
     setSubmitSuccess(false);
     setSubmitError(null);
-    reset();
+    reset({
+      ...defaultValues,
+      fieldOperatorName: localStorage.getItem("lastFieldOperatorName") || "",
+    });
   };
 
   const handleRetry = () => {

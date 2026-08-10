@@ -4,9 +4,26 @@
   "description": "మా సేవలను పొందడానికి రైతుగా నమోదు చేసుకోండి.",
   "sections": [
     {
+      "id": "operator",
+      "title": "ఫీల్డ్ ఆఫీసర్ / ఏజెంట్ సమాచారం",
+      "order": 1,
+      "fields": [
+        {
+          "name": "fieldOperatorName",
+          "label": "ఫీల్డ్ ఆపరేటర్ పేరు",
+          "type": "text",
+          "placeholder": "ఫీల్డ్ ఆపరేటర్ పేరు నమోదు చేయండి",
+          "required": true,
+          "order": 1,
+          "validation": { "minLength": 2, "maxLength": 50 },
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
       "id": "personal",
       "title": "వ్యక్తిగత సమాచారం",
-      "order": 1,
+      "order": 2,
       "fields": [
         {
           "name": "name",
@@ -52,7 +69,7 @@
     {
       "id": "address",
       "title": "చిరునామా",
-      "order": 2,
+      "order": 3,
       "fields": [
         {
           "name": "addressLine",
@@ -111,7 +128,7 @@
     {
       "id": "land",
       "title": "భూమి వివరాలు",
-      "order": 3,
+      "order": 4,
       "fields": [
         {
           "name": "landType",
@@ -148,7 +165,7 @@
     {
       "id": "services",
       "title": "కావలసిన సేవలు",
-      "order": 4,
+      "order": 5,
       "fields": [
         {
           "name": "servicesNeeded",
