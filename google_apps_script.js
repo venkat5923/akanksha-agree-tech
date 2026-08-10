@@ -15,8 +15,26 @@
  * ============================================================================
  */
 
+/**
+ * Helper to get the active spreadsheet or create a new one in Google Drive if standalone
+ */
+function getOrCreateSpreadsheet() {
+  let ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) {
+    // Check if the spreadsheet already exists in Google Drive
+    const files = DriveApp.getFilesByName("Akanksha_Agree_Tech_Registrations");
+    if (files.hasNext()) {
+      ss = SpreadsheetApp.open(files.next());
+    } else {
+      ss = SpreadsheetApp.create("Akanksha_Agree_Tech_Registrations");
+      Logger.log("🎉 Created new Google Sheet in your Drive: " + ss.getUrl());
+    }
+  }
+  return ss;
+}
+
 function setupSpreadsheet() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = getOrCreateSpreadsheet();
 
   // 1. Setup 'Farmers' Table (29 Complete Columns - Field Operator Name first)
   const farmerHeaders = [
@@ -146,7 +164,7 @@ function formatValue(val) {
  */
 function doPost(e) {
   try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ss = getOrCreateSpreadsheet();
     const payload = JSON.parse(e.postData.contents);
     const formType = payload.formType || "farmer";
     const data = payload.data || {};
