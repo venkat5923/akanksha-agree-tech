@@ -27,6 +27,7 @@ export default function FormField({ field, control, errors }) {
   const { t } = useLanguage();
   const rules = buildValidationRules(field, t);
   const error = errors[field.name];
+  const errorMsg = error ? error.message : "";
   const isFullWidth =
     ["textarea", "checkbox", "radio", "checkbox-group", "multiselect"].includes(field.type) ||
     field.name?.toLowerCase().includes("other") ||
