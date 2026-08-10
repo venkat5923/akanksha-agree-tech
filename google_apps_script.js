@@ -18,7 +18,7 @@
 function setupSpreadsheet() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
 
-  // 1. Setup 'Farmers' Table (20 Complete Columns)
+  // 1. Setup 'Farmers' Table (22 Complete Columns - Field Operator Name first)
   const farmerHeaders = [
     "Field Operator Name",
     "Submission Time",
@@ -39,7 +39,9 @@ function setupSpreadsheet() {
     "Tractor Operations",
     "JCB Operations",
     "Crop Cutting Operations",
-    "Groundnut Machine Operations"
+    "Groundnut Machine Operations",
+    "Labour Work Type",
+    "Number of Labourers"
   ];
   let farmerSheet = ss.getSheetByName("Farmers") || ss.insertSheet("Farmers");
   buildStyledTable(farmerSheet, farmerHeaders, "#1b5e20");
@@ -195,7 +197,9 @@ function doPost(e) {
         formatValue(data.tractorOperationType),
         formatValue(data.jcbOperationType),
         formatValue(data.cropCuttingType),
-        formatValue(data.groundnutMachineType)
+        formatValue(data.groundnutMachineType),
+        formatValue(data.labourType),
+        formatValue(data.labourCount)
       ]);
     }
 
