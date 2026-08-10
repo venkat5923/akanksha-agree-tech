@@ -20,8 +20,8 @@ function setupSpreadsheet() {
 
   // 1. Setup 'Farmers' Table (20 Complete Columns)
   const farmerHeaders = [
-    "Submission Time",
     "Field Operator Name",
+    "Submission Time",
     "Full Name",
     "Age",
     "Phone Number",
@@ -46,8 +46,8 @@ function setupSpreadsheet() {
 
   // 2. Setup 'Service_Providers' Table (17 Complete Columns)
   const providerHeaders = [
-    "Submission Time",
     "Field Operator Name",
+    "Submission Time",
     "Full Name",
     "Age",
     "Phone Number",
@@ -150,8 +150,8 @@ function doPost(e) {
         sheet = ss.getSheetByName("Service_Providers");
       }
       sheet.appendRow([
-        time,
         formatValue(data.fieldOperatorName),
+        time,
         formatValue(data.fullName),
         formatValue(data.age),
         formatValue(data.phone),
@@ -176,8 +176,8 @@ function doPost(e) {
         sheet = ss.getSheetByName("Farmers");
       }
       sheet.appendRow([
-        time,
         formatValue(data.fieldOperatorName),
+        time,
         formatValue(data.name),
         formatValue(data.age),
         formatValue(data.phone),
