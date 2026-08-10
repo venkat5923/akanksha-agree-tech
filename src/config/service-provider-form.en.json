@@ -127,12 +127,12 @@
     },
     {
       "id": "services",
-      "title": "Service Details",
+      "title": "Services Provided Details",
       "order": 4,
       "fields": [
         {
           "name": "servicesProvided",
-          "label": "Select the Services You Can Provide",
+          "label": "Services Provided by Operator (Select All Machinery & Services Offered)",
           "type": "checkbox-group",
           "required": true,
           "order": 1,
@@ -141,7 +141,7 @@
         },
         {
           "name": "otherMainServiceDetails",
-          "label": "Specify Other Service(s) Provided",
+          "label": "Specify Other Services Provided",
           "type": "text",
           "placeholder": "Enter details of other services provided",
           "required": false,
@@ -153,7 +153,7 @@
         },
         {
           "name": "droneCapabilities",
-          "label": "Drone Capabilities Offered",
+          "label": "Drone Services Provided by Operator",
           "type": "multiselect",
           "placeholder": "Select drone services you offer",
           "required": false,
@@ -187,7 +187,7 @@
         },
         {
           "name": "otherDroneDetails",
-          "label": "Specify Other Drone Services Offered",
+          "label": "Specify Other Drone Services Provided",
           "type": "text",
           "placeholder": "Enter other drone services provided",
           "required": false,
@@ -199,9 +199,9 @@
         },
         {
           "name": "tractorCapabilities",
-          "label": "Tractor Implements Available",
+          "label": "Tractor Services Provided by Operator",
           "type": "multiselect",
-          "placeholder": "Select tractor implements available",
+          "placeholder": "Select tractor services available",
           "required": false,
           "order": 5,
           "options": [
@@ -234,7 +234,7 @@
         },
         {
           "name": "otherTractorDetails",
-          "label": "Specify Other Tractor Implements / Services",
+          "label": "Specify Other Tractor Services Provided",
           "type": "text",
           "placeholder": "Enter other tractor services provided",
           "required": false,
@@ -246,9 +246,9 @@
         },
         {
           "name": "jcbCapabilities",
-          "label": "JCB Operations Offered",
+          "label": "JCB Services Provided by Operator",
           "type": "multiselect",
-          "placeholder": "Select JCB operations available",
+          "placeholder": "Select JCB services available",
           "required": false,
           "order": 7,
           "options": [
@@ -281,7 +281,7 @@
         },
         {
           "name": "otherJcbDetails",
-          "label": "Specify Other JCB Services Offered",
+          "label": "Specify Other JCB Services Provided",
           "type": "text",
           "placeholder": "Enter other JCB services provided",
           "required": false,
@@ -293,7 +293,7 @@
         },
         {
           "name": "cropCuttingCapabilities",
-          "label": "Harvester (Crop Cutting) Capabilities",
+          "label": "Crop Cutting Machine Services Provided by Operator",
           "type": "multiselect",
           "placeholder": "Select harvester capabilities",
           "required": false,
@@ -323,7 +323,7 @@
         },
         {
           "name": "otherCropCuttingDetails",
-          "label": "Specify Other Harvester Capabilities",
+          "label": "Specify Other Crop Cutting Services Provided",
           "type": "text",
           "placeholder": "Enter other harvesting capabilities provided",
           "required": false,
@@ -335,7 +335,7 @@
         },
         {
           "name": "groundnutMachineCapabilities",
-          "label": "Groundnut Machine Capabilities",
+          "label": "Groundnut Machine Services Provided by Operator",
           "type": "multiselect",
           "placeholder": "Select groundnut machine capabilities",
           "required": false,
@@ -362,7 +362,7 @@
         },
         {
           "name": "otherGroundnutDetails",
-          "label": "Specify Other Groundnut Machine Services",
+          "label": "Specify Other Groundnut Machine Services Provided",
           "type": "text",
           "placeholder": "Enter other groundnut machine services provided",
           "required": false,
@@ -374,7 +374,7 @@
         },
         {
           "name": "labourCapabilities",
-          "label": "Labour Team / Contractor Services Offered",
+          "label": "Labour Services Provided by Operator",
           "type": "multiselect",
           "placeholder": "Select labour services offered",
           "required": false,
@@ -397,7 +397,7 @@
         },
         {
           "name": "otherLabourDetails",
-          "label": "Specify Other Labour Services Offered",
+          "label": "Specify Other Labour Services Provided",
           "type": "text",
           "placeholder": "Enter other labour services offered",
           "required": false,
@@ -409,7 +409,7 @@
         },
         {
           "name": "availableLabourCount",
-          "label": "Available Labour Team Size / Capacity",
+          "label": "Available Labour Team Size (Number of Workers)",
           "type": "number",
           "placeholder": "Enter typical number of workers available",
           "required": false,
