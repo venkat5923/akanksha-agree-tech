@@ -314,9 +314,18 @@
           "required": false,
           "order": 6,
           "options": [
-            "Groundnut Digger / Harvester",
-            "Groundnut Pod Separator / Thresher",
-            "Decorticator / Shelling"
+            "Groundnut Digging",
+            "Groundnut Lifting",
+            "Groundnut Drying / Curing",
+            "Pod Shaking / Stripping",
+            "Threshing",
+            "Pod Cleaning",
+            "Pod Separation (pod from haulm)",
+            "Haulm Cutting / Chopping",
+            "Winnowing / Grading",
+            "Soil Clod Breaking",
+            "Row Planting / Sowing",
+            "Inverted Windrowing"
           ],
           "defaultValue": [],
           "conditional": {

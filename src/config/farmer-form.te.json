@@ -314,9 +314,18 @@
           "required": false,
           "order": 6,
           "options": [
-            "Groundnut Digger / Harvester (తవ్వకం యంత్రం)",
-            "Groundnut Pod Separator / Thresher (కాయలు వేరుచేసే యంత్రం)",
-            "Decorticator / Shelling (గుజ్జు/తొక్క వేరుచేసే యంత్రం)"
+            "Groundnut Digging (వేరుశనగ తవ్వకం)",
+            "Groundnut Lifting (వేరుశనగ పైకి లేపుట)",
+            "Groundnut Drying / Curing (వేరుశనగ ఆరబెట్టడం)",
+            "Pod Shaking / Stripping (మట్టిని రాల్చడం / కాయలు రాల్చడం)",
+            "Threshing (నూర్పిడి యంత్రం)",
+            "Pod Cleaning (కాయల శుభ్రపరచడం)",
+            "Pod Separation (మొక్క నుండి కాయలు వేరుచేయుట)",
+            "Haulm Cutting / Chopping (వేరుశనగ చెత్త/గడ్డి కోత)",
+            "Winnowing / Grading (తూర్పారబట్టడం / గ్రేడింగ్)",
+            "Soil Clod Breaking (మట్టి గడ్డలు పగులగొట్టుట)",
+            "Row Planting / Sowing (వరుసలలో విత్తనం వేయుట)",
+            "Inverted Windrowing (కాయలు ఎండబెట్టే వరుసల అమరిక)"
           ],
           "defaultValue": [],
           "conditional": {
