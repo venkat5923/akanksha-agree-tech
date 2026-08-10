@@ -18,12 +18,13 @@ import {
   OutlinedInput,
   Button,
   Typography,
+  ListSubheader,
 } from "@mui/material";
 import { buildValidationRules } from "../../utils/validation.js";
 import { useLanguage } from "../../context/LanguageContext.jsx";
 import AutocompleteField from "./AutocompleteField.jsx";
 
-// Custom MultiSelect with sticky header, selected counter, clear button, and prominent 'Done' button
+// Custom MultiSelect with sticky header, counter, and a single prominent 'Done' button on the top right
 function MultiSelectField({ field, control, rules, error, errorMsg, t }) {
   const [open, setOpen] = useState(false);
 
@@ -72,171 +73,99 @@ function MultiSelectField({ field, control, rules, error, errorMsg, t }) {
               MenuProps={{
                 PaperProps: {
                   sx: {
-                    maxHeight: { xs: 360, sm: 440 },
+                    maxHeight: { xs: 360, sm: 420 },
                     borderRadius: 2.5,
                     boxShadow: "0 12px 36px rgba(0,0,0,0.18)",
-                    display: "flex",
-                    flexDirection: "column",
                   },
                 },
                 autoFocus: false,
               }}
             >
-              {/* Sticky Top Header with Selected Counter & Quick Done button */}
-              <Box
+              {/* Single Sticky Top Header with Selected Counter & Top-Right Done Button */}
+              <ListSubheader
+                disableSticky={false}
                 sx={{
-                  px: 2,
-                  py: 1.2,
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
                   bgcolor: "#f8fafc",
                   borderBottom: "1.5px solid #e2e8f0",
-                  position: "sticky",
-                  top: 0,
-                  zIndex: 3,
+                  py: 1,
+                  px: 2,
+                  lineHeight: "normal",
                 }}
               >
-                <Typography variant="body2" sx={{ fontWeight: 700, color: "text.primary", fontSize: "0.88rem" }}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: 700,
+                    color: "text.primary",
+                    fontSize: "0.88rem",
+                  }}
+                >
                   {currentValues.length} {t("selected")}
                 </Typography>
                 <Button
                   size="small"
                   variant="contained"
                   color="primary"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setOpen(false);
+                  }}
                   onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     setOpen(false);
                   }}
                   sx={{
-                    py: 0.4,
-                    px: 2,
-                    fontSize: "0.82rem",
+                    py: 0.5,
+                    px: 2.2,
+                    fontSize: "0.84rem",
                     fontWeight: 700,
-                    borderRadius: 1.5,
+                    borderRadius: 2,
                     textTransform: "none",
                     backgroundImage: "linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%)",
+                    boxShadow: "0 2px 8px rgba(46, 125, 50, 0.3)",
+                    "&:hover": {
+                      backgroundImage: "linear-gradient(135deg, #1b5e20 0%, #0d3810 100%)",
+                    },
                   }}
                 >
                   {t("done")} ✓
                 </Button>
-              </Box>
+              </ListSubheader>
 
-              {/* Options Items */}
-              <Box sx={{ overflowY: "auto", flexGrow: 1, py: 0.5 }}>
-                {(field.options || []).map((opt) => {
-                  const isChecked = currentValues.indexOf(opt) > -1;
-                  return (
-                    <MenuItem
-                      key={opt}
-                      value={opt}
-                      sx={{
-                        py: 1.1,
-                        px: 2,
-                        bgcolor: isChecked ? "rgba(46, 125, 50, 0.08) !important" : "transparent",
-                        "&:hover": {
-                          bgcolor: isChecked ? "rgba(46, 125, 50, 0.14) !important" : "rgba(0,0,0,0.04)",
-                        },
-                      }}
-                    >
-                      <Checkbox checked={isChecked} color="primary" sx={{ mr: 1, p: 0.5 }} />
-                      <Typography
-                        sx={{
-                          fontSize: { xs: "0.9rem", sm: "0.95rem" },
-                          fontWeight: isChecked ? 700 : 500,
-                          color: isChecked ? "primary.dark" : "text.primary",
-                        }}
-                      >
-                        {opt}
-                      </Typography>
-                    </MenuItem>
-                  );
-                })}
-
-                {/* Direct 'Done' Option Button below the Others option */}
-                <Box sx={{ p: 1.5, pt: 1.5, pb: 1, borderTop: "1px dashed #e2e8f0", bgcolor: "#f8fafc" }}>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setOpen(false);
-                    }}
+              {/* Direct MenuItem options so click-to-select works 100% reliably */}
+              {(field.options || []).map((opt) => {
+                const isChecked = currentValues.indexOf(opt) > -1;
+                return (
+                  <MenuItem
+                    key={opt}
+                    value={opt}
                     sx={{
-                      py: 1.2,
-                      fontWeight: 700,
-                      borderRadius: 2,
-                      fontSize: "0.95rem",
-                      textTransform: "none",
-                      backgroundImage: "linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%)",
-                      boxShadow: "0 3px 10px rgba(46, 125, 50, 0.3)",
+                      py: 1,
+                      px: 2,
+                      bgcolor: isChecked ? "rgba(46, 125, 50, 0.08) !important" : "transparent",
                       "&:hover": {
-                        backgroundImage: "linear-gradient(135deg, #1b5e20 0%, #0d3810 100%)",
+                        bgcolor: isChecked ? "rgba(46, 125, 50, 0.14) !important" : "rgba(0,0,0,0.04)",
                       },
                     }}
                   >
-                    {t("done")} {currentValues.length > 0 ? `(${currentValues.length} ${t("selected")})` : ""} ✓
-                  </Button>
-                </Box>
-              </Box>
-
-              {/* Sticky Bottom Footer with Clear & Prominent Done Button */}
-              <Box
-                sx={{
-                  p: 1.25,
-                  bgcolor: "#ffffff",
-                  borderTop: "1.5px solid #e2e8f0",
-                  position: "sticky",
-                  bottom: 0,
-                  zIndex: 3,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  gap: 1.5,
-                  boxShadow: "0 -2px 10px rgba(0,0,0,0.05)",
-                }}
-              >
-                {currentValues.length > 0 && (
-                  <Button
-                    size="small"
-                    color="inherit"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      f.onChange([]);
-                    }}
-                    sx={{
-                      textTransform: "none",
-                      fontSize: "0.82rem",
-                      fontWeight: 600,
-                      color: "text.secondary",
-                      "&:hover": { color: "error.main" },
-                    }}
-                  >
-                    {t("clear")}
-                  </Button>
-                )}
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setOpen(false);
-                  }}
-                  sx={{
-                    py: 1,
-                    fontWeight: 700,
-                    borderRadius: 2,
-                    fontSize: { xs: "0.9rem", sm: "0.95rem" },
-                    textTransform: "none",
-                    backgroundImage: "linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%)",
-                    boxShadow: "0 3px 10px rgba(46, 125, 50, 0.3)",
-                  }}
-                >
-                  {t("done")} {currentValues.length > 0 ? `(${currentValues.length})` : ""} ✓
-                </Button>
-              </Box>
+                    <Checkbox checked={isChecked} color="primary" sx={{ mr: 1, p: 0.5 }} />
+                    <Typography
+                      sx={{
+                        fontSize: { xs: "0.9rem", sm: "0.95rem" },
+                        fontWeight: isChecked ? 700 : 500,
+                        color: isChecked ? "primary.dark" : "text.primary",
+                      }}
+                    >
+                      {opt}
+                    </Typography>
+                  </MenuItem>
+                );
+              })}
             </Select>
             {errorMsg && <FormHelperText>{errorMsg}</FormHelperText>}
           </FormControl>
